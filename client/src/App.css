@@ -1,0 +1,18 @@
+body { background: #f7f7f7; }
+.app { margin: 3em; width: 24em; }
+
+input,
+button {
+  padding: 0.5em 0.75em;
+  margin-right: 1em;
+  border-radius: 4px;
+  outline: none;
+  border: 1px solid transparent;
+  font: inherit;
+}
+
+input       { border-color: #888; }
+input:focus { border-color: #17f; }
+
+button        { background: #17f; color: #fff; }
+button:active { background: #15d; }
