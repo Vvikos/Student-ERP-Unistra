@@ -17,10 +17,9 @@ app.listen(process.env.REACT_APP_SERVER_PORT, () => {
   console.log(`App server now listening on port ${process.env.REACT_APP_SERVER_PORT}`);
 });
 
-app.get('/test', (req, res) => {
-  const { table } = req.query;
 
-  pool.query(`select * from ${table}`, (err, results) => {
+app.get('/api/auth/all', (req, res) => {
+  pool.query(`select * from sample`, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
