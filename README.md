@@ -1,13 +1,27 @@
-# STUDENT
+# APPLICATION - STUDENT
 
-Front Student Module for ERP Project 2021
+## Front Student Module pour Projet ERP 2021
 
-To Install Project :
+#### Avant d'executer l'application :
 
-	in client/ and server/ run 	npm start
-	sudo npm install -g nodemon
+	Renommer le fichier .env-model en .env
 
-To Start Project :
+#### Executer l'application :
 
-	in client/ run 	npm start
-	in server/ run	nodemon
+	docker-compose up
+
+
+#### Une fois le build terminé et les services lancés :
+
+Le client (l'interface) :
+
+	localhost:3000
+
+
+Le serveur (API) :
+
+	localhost:8000/api
+
+Visualisation de base de données via PhpMyAdmin
+
+	localhost:8080

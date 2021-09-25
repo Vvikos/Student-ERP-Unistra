@@ -1,0 +1,55 @@
+version: "3.4"
+
+services:
+  mysql:
+    image: mysql:5.7
+    ports:
+      - 3306:3306
+    restart: unless-stopped
+    env_file:
+      - ./.env
+    volumes:
+      - ./db/student.sql:/docker-entrypoint-initdb.d/student.sql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    depends_on:
+      - mysql
+    env_file:
+      - ./.env
+    links: 
+      - mysql
+    ports:
+      - 8080:80
+    restart: always
+
+  server:
+    build: ./server
+    expose:
+      - 8000
+    ports:
+      - 8000:8000
+    volumes:
+      - ./server:/usr/src/app/
+    depends_on:
+      - mysql
+    env_file:
+      - ./.env
+    command: >
+      sh -c "npm install && npm start"
+
+  client:
+    build: ./client
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    depends_on:
+      - server
+    env_file:
+      - ./.env
+    command: npm start
+
+
+volumes:
+  node_modules:

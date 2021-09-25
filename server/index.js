@@ -1,25 +1,29 @@
+const cors = require('cors');
 const express = require('express');
+const mysql = require('mysql');
+
 const app = express();
-const port = 3001;
-const unirest = require("unirest");
 
-app.get('/api/:word', (req, res) => {
-  /*const request = unirest("GET", "https://twinword-word-associations-v1.p.rapidapi.com/associations/");
-  request.query({ "entry": req.params.word });
-  request.headers({
-    "x-rapidapi-host": "twinword-word-associations-v1.p.rapidapi.com",
-    "x-rapidapi-key": "YOUR_RAPID_API_KEY_GOES_HERE",
-    "useQueryString": true
-  });
-
-  request.end(function (response) {
-    if (response.error) throw new Error(response.error);
-
-    res.json(response.body.associations_scored || {});
-  });*/
-  res.json({ "entry": req.params.word });
+const pool = mysql.createPool({
+  host: process.env.MYSQL_HOST_IP,
+  user: process.env.MYSQL_USER,
+  password: process.env.MYSQL_PASSWORD,
+  database: process.env.MYSQL_DATABASE,
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+app.use(cors());
+
+app.listen(process.env.REACT_APP_SERVER_PORT, () => {
+  console.log(`App server now listening on port ${process.env.REACT_APP_SERVER_PORT}`);
+});
+
+
+app.get('/api/auth/all', (req, res) => {
+  pool.query(`select * from STUDENT`, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send(results);
+    }
+  });
 });
