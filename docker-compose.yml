@@ -46,7 +46,8 @@ services:
       - ./server:/usr/src/app/
     links:
       - mysql
-    command: npm start
+    command: >
+      sh -c "npm install && npm start"
 
   client:
     build: ./client
