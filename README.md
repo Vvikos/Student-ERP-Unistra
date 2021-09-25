@@ -1,7 +1,27 @@
-# REACT-NODE-MYSQL-DOCKER BOILERPLATE
+# APPLICATION - STUDENT
 
-This repository was made to complement the following tutorial:
+## Front Student Module pour Projet ERP 2021
 
-https://medium.com/@carloscuba014/building-a-react-app-that-connects-to-mysql-via-nodejs-using-docker-a8acbb0e9788
+#### Avant d'executer l'application :
 
-Please feel free to comment on it or create an issue here with questions or suggestions on how to improve it.
+	Renommer le fichier .env-model en .env
+
+#### Executer l'application :
+
+	docker-compose up
+
+
+#### Une fois le build terminé et les services lancés :
+
+Le client (l'interface) :
+
+	localhost:3000
+
+
+Le serveur (API) :
+
+	localhost:8000/api
+
+Visualisation de base de données via PhpMyAdmin
+
+	localhost:8080
