@@ -1,17 +1,12 @@
 FROM node:10-alpine
 
-RUN npm install -g nodemon
-RUN npm install cors --save
-RUN npm install express --save
-RUN npm install mysql --save
+WORKDIR /usr/src/app
 
-RUN mkdir -p /app
-WORKDIR /app
-
-#COPY app/package.json app/package2.json
-COPY package*.json /app
 RUN npm install
 
-COPY . /app
+COPY package*.json /usr/src/app
+RUN npm install
+
+COPY . /usr/src/app
 
 CMD ["npm", "start"]

@@ -18,6 +18,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./db/sample.sql:/docker-entrypoint-initdb.d/sample.sql
+
   phpmyadmin:
     depends_on:
       - mysql
@@ -29,6 +30,7 @@ services:
     ports:
       - 8080:80
     restart: always
+
   server:
     build: ./server
     depends_on:
@@ -41,10 +43,11 @@ services:
     ports:
       - 8000:8000
     volumes:
-      - ./server:/app
+      - ./server:/usr/src/app/
     links:
       - mysql
     command: npm start
+
   client:
     build: ./client
     environment:
@@ -54,8 +57,6 @@ services:
       - 3000
     ports:
       - 3000:3000
-    volumes:
-      - ./client/src:/app/src
     links:
       - server
     command: npm start

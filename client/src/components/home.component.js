@@ -31,10 +31,10 @@ export default class Home extends Component {
 
   getFormattedDate(date) {
     var timestamp = Date.parse(date);
-    var date = new Date(timestamp);
-    var dd = String(date.getDate()).padStart(2, '0');
-    var mm = String(date.getMonth() + 1).padStart(2, '0');
-    var yyyy = date.getFullYear();
+    var formatDate = new Date(timestamp);
+    var dd = String(formatDate.getDate()).padStart(2, '0');
+    var mm = String(formatDate.getMonth() + 1).padStart(2, '0');
+    var yyyy = formatDate.getFullYear();
     
     return dd + '/' + mm + '/' + yyyy;
 }
