@@ -29,6 +29,16 @@ export default class Home extends Component {
     );
   }
 
+  getFormattedDate(date) {
+    var timestamp = Date.parse(date);
+    var date = new Date(timestamp);
+    var dd = String(date.getDate()).padStart(2, '0');
+    var mm = String(date.getMonth() + 1).padStart(2, '0');
+    var yyyy = date.getFullYear();
+    
+    return dd + '/' + mm + '/' + yyyy;
+}
+
 
   render() {
     return (
@@ -41,15 +51,27 @@ export default class Home extends Component {
                 <table className="table">
                     <thead>
                         <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Nom</th>
+                          <th scope="col">#</th>
+                          <th scope="col">Nom utilisateur</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Prenom</th>
+                          <th scope="col">Email</th>
+                          <th scope="col">Date de naissance</th>
+                          <th scope="col">Numero étudiant</th>
+                          <th scope="col">Date d'adhésion</th>
                         </tr>
                     </thead>
                     <tbody>
-                {Object.entries(this.state.content).map(([key, value]) => (
+                {Object.entries(this.state.content).map(([key, student]) => (
                     <tr key={key}>
-                        <th scope="row">{value.id}</th>
-                        <td>{value.name}</td>
+                        <th scope="row">{student.id}</th>
+                        <td>{student.nom_utilisateur}</td>
+                        <td>{student.nom}</td>
+                        <td>{student.prenom}</td>
+                        <td>{student.email}</td>
+                        <td>{this.getFormattedDate(student.date_naissance)}</td>
+                        <td>{student.numero_etudiant}</td>
+                        <td>{this.getFormattedDate(student.date_adhesion)}</td>
                     </tr>
                 ))}
                     </tbody>

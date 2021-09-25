@@ -19,7 +19,7 @@ app.listen(process.env.REACT_APP_SERVER_PORT, () => {
 
 
 app.get('/api/auth/all', (req, res) => {
-  pool.query(`select * from sample`, (err, results) => {
+  pool.query(`select * from STUDENT`, (err, results) => {
     if (err) {
       return res.send(err);
     } else {

@@ -12,7 +12,9 @@ CREATE TABLE `STUDENT` (
   `date_naissance` date NOT NULL,
   `numero_etudiant` int(20) NOT NULL,
   `photo` varchar(255) NOT NULL,
-  `date_adhesion` date NOT NULL
+  `date_adhesion` date NOT NULL,
+  `created_at` datetime  NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `modified_at` datetime  NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
