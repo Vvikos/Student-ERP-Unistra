@@ -25,7 +25,7 @@ export class Profile extends React.Component {
       [event.target.id]: event.target.value
     });
   }
-  
+
   validateForm() {
     return this.state.oldpassword.length > 0 && this.state.password.length > 0;
   }
@@ -50,6 +50,10 @@ export class Profile extends React.Component {
             <div>{this.props.state.me.email}</div>
           </div>
           <br/>
+          <div>
+            <h6>Photo</h6>
+            <img src={this.props.state.me.url_photo}/>
+          </div>
           <Form onSubmit={(e) => {e.preventDefault(); this.changePassword(e)}}>
             <Form.Group controlId="oldpassword">
               <Form.Label>Old password</Form.Label>

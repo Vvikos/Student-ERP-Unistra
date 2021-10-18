@@ -5,13 +5,13 @@ import * as loginActions from '../actions/Login.actions';
 import { Form, Button, Card } from "react-bootstrap";
 
 export class Login extends React.Component {
-  
+
   constructor(props) {
     super(props);
 
     this.state = {
       username: "",
-      password: ""
+      password: "",
     };
 
     this.login = this.login.bind(this);
@@ -71,7 +71,7 @@ export class Login extends React.Component {
             {this.props.state.error && <div><br/>{JSON.stringify(this.props.state.errorMessage.message)}</div>}
           </Form>
         </Card.Body>
-      </Card>      
+      </Card>
    	);
   }
 }

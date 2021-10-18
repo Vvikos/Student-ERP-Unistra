@@ -23,6 +23,10 @@ const UserSchema = new mongoose.Schema({
         minlength: 8,
         select: false,
     },
+    url_photo: {
+        type:String,
+        required: false,
+    }
 });
 
 UserSchema.virtual('likes', {

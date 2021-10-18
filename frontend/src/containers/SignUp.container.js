@@ -13,6 +13,7 @@ export class SignUp extends React.Component {
       username: "",
       password: "",
       email: "",
+      url_photo: "",
     };
     this.register = this.register.bind(this);
   }
@@ -67,6 +68,14 @@ export class SignUp extends React.Component {
                 onChange={this.handleChange}
                 type="password"
                 minLength={8}
+              />
+            </Form.Group>
+            <Form.Group controlId="url_photo" className="mb-3">
+              <Form.Label>Url Photo</Form.Label>
+              <Form.Control
+                type="text"
+                value={this.state.url_photo}
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Button
