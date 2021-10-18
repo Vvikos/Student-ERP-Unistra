@@ -1,55 +1,20 @@
-version: "3.4"
-
+version: '3'
 services:
-  mysql:
-    image: mysql:5.7
+  mongodb:
+    image: mongo
     ports:
-      - 3306:3306
-    restart: unless-stopped
-    env_file:
-      - ./.env
-    volumes:
-      - ./db/student.sql:/docker-entrypoint-initdb.d/student.sql
-
-  phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    depends_on:
-      - mysql
-    env_file:
-      - ./.env
-    links: 
-      - mysql
-    ports:
-      - 8080:80
-    restart: always
+      - "27017:27017"
 
   server:
-    build: ./server
-    expose:
-      - 8000
-    ports:
-      - 8000:8000
-    volumes:
-      - ./server:/usr/src/app/
+    build: .
     depends_on:
-      - mysql
-    env_file:
-      - ./.env
-    command: >
-      sh -c "npm install && npm start"
-
-  client:
-    build: ./client
-    expose:
-      - 3000
+      - "mongodb"
+    command: "npm run start:prod"
     ports:
-      - 3000:3000
-    depends_on:
-      - server
-    env_file:
-      - ./.env
-    command: npm start
-
-
-volumes:
-  node_modules:
+      - "8005:8005"
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - CI=true
+      - NODE_ENV=production
+      - PORT=8005
+      - MONGO_NAME=mongodb
