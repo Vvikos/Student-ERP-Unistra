@@ -13,6 +13,8 @@ export class SignUp extends React.Component {
       username: "",
       password: "",
       email: "",
+      date_birth: null,
+      student_number: null,
     };
     this.register = this.register.bind(this);
   }
@@ -67,6 +69,20 @@ export class SignUp extends React.Component {
                 onChange={this.handleChange}
                 type="password"
                 minLength={8}
+              />
+            </Form.Group>
+            <Form.Group controlId="date_birth" bsSize="large">
+              <Form.Label>Birthday</Form.Label>
+              <Form.Control
+                type="date"
+                value={this.state.date_birth}
+              />
+            </Form.Group>
+            <Form.Group controlId="student_number">
+              <Form.Label>Student number</Form.Label>
+              <Form.Control
+                type="text"
+                value={this.state.student_number}
               />
             </Form.Group>
             <Button

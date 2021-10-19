@@ -10,6 +10,24 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
+    password: {
+        type: String,
+        required: true,
+        minlength: 8,
+        select: false,
+    },
+    lastname: {
+        type: String,
+        required: true,
+        minlength: 1,
+        select: false,
+    },
+    firstname: {
+        type: String,
+        required: true,
+        minlength: 1,
+        select: false,
+    },
     email: {
         type: String,
         required: true,
@@ -17,11 +35,26 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
-    password: {
-        type: String,
+    date_birth: {
+        type: Date,
+        required: true,
+        default: null,
+    },
+    student_number: {
+        type: Number,
         required: true,
         minlength: 8,
+        maxlength: 8,
         select: false,
+    },
+    picture: {
+        type: String,
+        select: false,
+    },
+    date_subscription: {
+        type: String,
+        select: false,
+        default: null,
     },
 });
 
