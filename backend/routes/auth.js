@@ -27,7 +27,7 @@ router.post('/signup', async (req, res) => {
         return res.status(400).json(e);
     }
 
-    return res.status(200).json();
+    return res.status(200).json({});
 });
 
 router.post('/login', async (req, res) => {

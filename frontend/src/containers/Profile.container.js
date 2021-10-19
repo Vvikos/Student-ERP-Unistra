@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router-dom'
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button, Card, Image, Container, Row, Col } from "react-bootstrap";
 import * as profileActions from "../actions/Profile.actions";
 
 export class Profile extends React.Component {
@@ -40,6 +40,13 @@ export class Profile extends React.Component {
   		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
           <Card.Title>Profile</Card.Title>
+          <Container>
+          <Row>
+            <Col xs={6} md={4}>
+              <Image src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png" width={210} height={210} roundedCircle />
+            </Col>
+          </Row>
+        </Container>
           <div>
             <h6>Username</h6>
             <div>{this.props.state.me.username}</div>
