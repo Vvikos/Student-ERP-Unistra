@@ -12,9 +12,11 @@ export class SignUp extends React.Component {
     this.state = {
       username: "",
       password: "",
+      firstname: "",
+      lastname: "",
       email: "",
-      date_birth: null,
       student_number: null,
+      date_birth: "",
     };
     this.register = this.register.bind(this);
   }
@@ -54,6 +56,26 @@ export class SignUp extends React.Component {
                 onChange={this.handleChange}
               />
             </Form.Group>
+            <Form.Group controlId="firstname">
+              <Form.Label>Firstname</Form.Label>
+              <Form.Control
+                autoFocus
+                type="text"
+                minLength={1}
+                value={this.state.firstname}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
+            <Form.Group controlId="lastname">
+              <Form.Label>Lastname</Form.Label>
+              <Form.Control
+                autoFocus
+                type="text"
+                minLength={1}
+                value={this.state.lastname}
+                onChange={this.handleChange}
+              />
+            </Form.Group>
             <Form.Group controlId="email">
               <Form.Label>E-mail</Form.Label>
               <Form.Control
@@ -76,13 +98,17 @@ export class SignUp extends React.Component {
               <Form.Control
                 type="date"
                 value={this.state.date_birth}
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Form.Group controlId="student_number">
               <Form.Label>Student number</Form.Label>
               <Form.Control
                 type="text"
+                minLength={8}
+                maxLength={8}
                 value={this.state.student_number}
+                onChange={this.handleChange}
               />
             </Form.Group>
             <Button

@@ -46,8 +46,28 @@ export class Profile extends React.Component {
           </div>
           <br/>
           <div>
+            <h6>First name</h6>
+            <div>{this.props.state.me.firstname}</div>
+          </div>
+          <br/>
+          <div>
+            <h6>Last name</h6>
+            <div>{this.props.state.me.lastname}</div>
+          </div>
+          <br/>
+          <div>
             <h6>Email</h6>
             <div>{this.props.state.me.email}</div>
+          </div>
+          <br/>
+          <div>
+            <h6>No Student</h6>
+            <div>{this.props.state.me.student_number}</div>
+          </div>
+          <br/>
+          <div>
+            <h6>Date Birth</h6>
+            <div>{this.props.state.me.date_birth}</div>
           </div>
           <br/>
           <Form onSubmit={(e) => {e.preventDefault(); this.changePassword(e)}}>

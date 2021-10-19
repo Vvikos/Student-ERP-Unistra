@@ -20,13 +20,13 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true,
         minlength: 1,
-        select: false,
+        select: true,
     },
     firstname: {
         type: String,
         required: true,
         minlength: 1,
-        select: false,
+        select: true,
     },
     email: {
         type: String,
@@ -45,7 +45,7 @@ const UserSchema = new mongoose.Schema({
         required: true,
         minlength: 8,
         maxlength: 8,
-        select: false,
+        select: true,
     },
     picture: {
         type: String,

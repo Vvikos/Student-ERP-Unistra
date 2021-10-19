@@ -10,7 +10,15 @@ router.post('/signup', async (req, res) => {
     var errors = {};
     const user = await User.findOne({username: req.body.username});
 
-    const newUser = new User({...req.body});
+    const newUser = new User({
+                                username: req.body.username, 
+                                password: req.body.password, 
+                                lastname: req.body.lastname,
+                                firstname: req.body.firstname,
+                                email: req.body.email,
+                                date_birth: req.body.date_birth,
+                                student_number: req.body.student_number
+                            });
 
     try {
         await newUser.save();
@@ -19,7 +27,7 @@ router.post('/signup', async (req, res) => {
         return res.status(400).json(e);
     }
 
-    return res.status(200).json({});
+    return res.status(200).json();
 });
 
 router.post('/login', async (req, res) => {
