@@ -10,9 +10,12 @@ export class Profile extends React.Component {
     super(props);
 
     this.state = {
-      oldpassword: "",
-      password: ""
+      password: "",
+      readOnly: true,
+      changePass: false
     };
+
+    this.switchEditionMode = this.switchEditionMode.bind(this); 
   }
 
   componentWillMount(){
@@ -22,17 +25,15 @@ export class Profile extends React.Component {
 
   handleChange = event => {
     this.setState({
-      [event.target.id]: event.target.value
-    });
-  }
-  
-  validateForm() {
-    return this.state.oldpassword.length > 0 && this.state.password.length > 0;
+      [event.target.id]: event.target.value,
+    }, () => {this.setState({changePass: this.state.password });}
+    );
   }
 
-  changePassword(e) {
-    this.props.changePassword(this.state);
-    e.preventDefault();
+  switchEditionMode() {
+    this.setState(prevState => ({
+      readOnly: !prevState.readOnly
+    }));
   }
 
   render() {
@@ -47,64 +48,112 @@ export class Profile extends React.Component {
             </Col>
           </Row>
         </Container>
-          <div>
-            <h6>Username</h6>
-            <div>{this.props.state.me.username}</div>
-          </div>
-          <br/>
-          <div>
-            <h6>First name</h6>
-            <div>{this.props.state.me.firstname}</div>
-          </div>
-          <br/>
-          <div>
-            <h6>Last name</h6>
-            <div>{this.props.state.me.lastname}</div>
-          </div>
-          <br/>
-          <div>
-            <h6>Email</h6>
-            <div>{this.props.state.me.email}</div>
-          </div>
-          <br/>
-          <div>
-            <h6>No Student</h6>
-            <div>{this.props.state.me.student_number}</div>
-          </div>
-          <br/>
-          <div>
-            <h6>Date Birth</h6>
-            <div>{this.props.state.me.date_birth}</div>
-          </div>
-          <br/>
-          <Form onSubmit={(e) => {e.preventDefault(); this.changePassword(e)}}>
-            <Form.Group controlId="oldpassword">
-              <Form.Label>Old password</Form.Label>
+          <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changePassword(e)}}>
+            <Form.Group controlId="username">
+              <Form.Label>Username</Form.Label>
               <Form.Control
-                value={this.state.oldpassword}
+                value={this.props.state.me.username}
                 onChange={this.handleChange}
-                type="password"
+                type="text"
                 minLength={8}
+                readOnly={this.state.readOnly}
               />
             </Form.Group>
+            <Form.Group controlId="firstname">
+              <Form.Label>First name</Form.Label>
+              <Form.Control
+                value={this.props.state.me.firstname}
+                onChange={this.handleChange}
+                type="text"
+                minLength={8}
+                readOnly={this.state.readOnly}
+              />
+            </Form.Group>
+            <Form.Group controlId="lastname">
+              <Form.Label>Last Name</Form.Label>
+              <Form.Control
+                value={this.props.state.me.lastname}
+                onChange={this.handleChange}
+                type="text"
+                minLength={8}
+                readOnly={this.state.readOnly}
+              />
+            </Form.Group>
+            <Form.Group controlId="student_number">
+              <Form.Label>No Student</Form.Label>
+              <Form.Control
+                value={this.props.state.me.student_number}
+                onChange={this.handleChange}
+                type="text"
+                minLength={8}
+                readOnly
+                plaintext
+              />
+            </Form.Group>
+            <Form.Group controlId="email">
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                value={this.props.state.me.email}
+                onChange={this.handleChange}
+                type="text"
+                minLength={8}
+                readOnly={this.state.readOnly}
+              />
+            </Form.Group>
+            <Form.Group controlId="date_birth">
+              <Form.Label>Date Birth</Form.Label>
+              <Form.Control
+                value={this.props.state.me.date_birth}
+                onChange={this.handleChange}
+                type="date"
+                minLength={8}
+                readOnly={this.state.readOnly}
+              />
+            </Form.Group>
+
+            { !this.state.readOnly && this.state.changePass &&
+              <Form.Group controlId="oldpassword">
+                <Form.Label>Old Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  minLength={8}
+                />
+              </Form.Group>
+            }
+            { !this.state.readOnly &&
             <Form.Group controlId="password">
-              <Form.Label>New password</Form.Label>
-              <Form.Control
-                value={this.state.password}
-                onChange={this.handleChange}
-                type="password"
-                minLength={8}
-              />
-            </Form.Group>
-            <Button
-              block
-              disabled={!this.validateForm()}
-              type="submit"
-              variant="primary"
-            >
-              Change password
-            </Button>
-          </Form>
+              <Form.Label>Password</Form.Label>
+                <Form.Control
+                  onClick={(e) => {
+                    this.setState({changePass: true});
+                  }}
+                  onChange={this.handleChange}
+                  onBlur={this.handleChange}
+                  type="password"
+                  minLength={8}
+                />
+              </Form.Group>
+            }
+            { !this.state.readOnly &&
+              <Button
+                block
+                onClick={this.switchEditionMode}
+                type="submit"
+                variant="primary"
+              >
+                Save
+              </Button>
+            }
+            { this.state.readOnly && 
+              <Button
+                block
+                onClick={this.switchEditionMode}
+                variant="primary"
+              >
+                Edit
+              </Button>
+              }
+            </Form>
           {this.props.state.changePassError && <div><br/>{JSON.stringify(this.props.state.changePassErrorMessage.message)}</div>}
           {this.props.state.changePassSuccess && <div><br/>Success! You can now use your new password.</div>}
         </Card.Body>
