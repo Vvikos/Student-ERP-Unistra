@@ -13,15 +13,15 @@ export const profileDataFetchFailure = () => {
     }
 }
 
-export const updatePasswordSuccess = () => {
+export const updateUserSuccess = () => {
     return {
-        type:'UPDATE_PASS_SUCCESS',
+        type:'UPDATE_USER_SUCCESS',
     }
 }
 
-export const updatePasswordFailure = (error) => {
+export const updateUserFailure = (error) => {
     return {
-        type:'UPDATE_PASS_FAILURE',
+        type:'UPDATE_USER_FAILURE',
         message:error,
     }
 }
@@ -51,9 +51,9 @@ export const fetchUserData = () => {
     }
 }
 
-export const changePassword = (data) => {
+export const changeUserData = (data) => {
     return async (dispatch) => {
-        const response = await fetch( "/api/me/update-password", {
+        const response = await fetch( "/api/me/update", {
             method: 'POST',
             headers: {
                 'Authorization': userService.getToken(),
@@ -64,12 +64,12 @@ export const changePassword = (data) => {
         })
 
         if(response.ok){
-            dispatch(updatePasswordSuccess());
+            dispatch(updateUserSuccess());
         }
         else{
             response.json().then(error => {
-                dispatch(updatePasswordFailure(error));
-            }).catch(err => dispatch(updatePasswordFailure(err)));
+                dispatch(updateUserFailure(error));
+            }).catch(err => dispatch(updateUserFailure(err)));
         }
 
         return response;

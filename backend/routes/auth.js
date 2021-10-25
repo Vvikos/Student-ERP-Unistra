@@ -75,28 +75,38 @@ router.get('/me', passport.authenticate('jwt', {session: false}), async function
     res.status(200).json(dbUser);
 });
 
-router.post('/me/update-password', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
+router.post('/me/update', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
     const username = req.user.username;
+    const firstname = req.user.firstname;
+    const lastname = req.user.lastname;
+    const student_number = req.user.student_number;
+    const email = req.user.email;
+    const date_birth = req.user.date_birth;
     const oldPassword = req.body.oldpassword;
     const newPassword = req.body.password;
 
     const dbUser = await User.findOne({ username }).select("+password");
 
-    const passwordMatch = await new Promise((resolve, reject) => {
-        bcrypt.compare(oldPassword, dbUser.password,function(err, isMatch){
-            console.log(err)
+    if (newPassword) {
+        const passwordMatch = await new Promise((resolve, reject) => {
+            bcrypt.compare(oldPassword, dbUser.password,function(err, isMatch){
+                console.log(err)
 
-            if(err) return reject(err);
-            resolve(isMatch)
+                if(err) return reject(err);
+                resolve(isMatch)
+            })
         })
-    })
-    if (!passwordMatch) {
-        return res.status(400).json({message:"Old password incorrect."});
+        if (!passwordMatch) {
+            return res.status(400).json({message:"Old password incorrect."});
+        }
+        dbUser.password = newPassword;
     }
-
-    console.log(dbUser)
-    dbUser.password = newPassword;
-    console.log(dbUser.password)
+    dbUser.firstname = firstname;
+    dbUser.lastname = lastname;
+    dbUser.student_number = student_number;
+    dbUser.email = email;
+    dbUser.date_birth = date_birth;
+    console.log(dbUser);
     try {
         await dbUser.save();
     } catch (e) {

@@ -54,8 +54,6 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
   	fetchUsers: () => dispatch(userActions.fetchUsers()),
-  	likeUser: (user) => dispatch(userActions.likeUser(user)),
-    unlikeUser: (user) => dispatch(userActions.unlikeUser(user)),
   }
 }
 

@@ -36,6 +36,17 @@ export class Profile extends React.Component {
     }));
   }
 
+  changeUserData(e) {
+    this.props.changeUserData(this.state);
+    e.preventDefault();
+    if(this.props.state.updateUserSuccess){
+      this.setState({
+        readOnly: true
+      });
+    }
+  }
+
+
   render() {
   	return (
   		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
@@ -44,25 +55,26 @@ export class Profile extends React.Component {
           <Container>
           <Row>
             <Col xs={6} md={4}>
-              <Image src="https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png" width={210} height={210} roundedCircle />
+              <Image src={this.props.state.me.picture} width={210} height={210} roundedCircle />
             </Col>
           </Row>
         </Container>
-          <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changePassword(e)}}>
+          <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changeUserData(e)}}>
             <Form.Group controlId="username">
               <Form.Label>Username</Form.Label>
               <Form.Control
-                value={this.props.state.me.username}
+                defaultValue={this.props.state.me.username}
                 onChange={this.handleChange}
                 type="text"
                 minLength={8}
-                readOnly={this.state.readOnly}
+                readOnly
+                plaintext
               />
             </Form.Group>
             <Form.Group controlId="firstname">
               <Form.Label>First name</Form.Label>
               <Form.Control
-                value={this.props.state.me.firstname}
+                defaultValue={this.props.state.me.firstname}
                 onChange={this.handleChange}
                 type="text"
                 minLength={8}
@@ -72,7 +84,7 @@ export class Profile extends React.Component {
             <Form.Group controlId="lastname">
               <Form.Label>Last Name</Form.Label>
               <Form.Control
-                value={this.props.state.me.lastname}
+                defaultValue={this.props.state.me.lastname}
                 onChange={this.handleChange}
                 type="text"
                 minLength={8}
@@ -82,7 +94,7 @@ export class Profile extends React.Component {
             <Form.Group controlId="student_number">
               <Form.Label>No Student</Form.Label>
               <Form.Control
-                value={this.props.state.me.student_number}
+                defaultValue={this.props.state.me.student_number}
                 onChange={this.handleChange}
                 type="text"
                 minLength={8}
@@ -93,7 +105,7 @@ export class Profile extends React.Component {
             <Form.Group controlId="email">
               <Form.Label>Email</Form.Label>
               <Form.Control
-                value={this.props.state.me.email}
+                defaultValue={this.props.state.me.email}
                 onChange={this.handleChange}
                 type="text"
                 minLength={8}
@@ -103,7 +115,7 @@ export class Profile extends React.Component {
             <Form.Group controlId="date_birth">
               <Form.Label>Date Birth</Form.Label>
               <Form.Control
-                value={this.props.state.me.date_birth}
+                defaultValue={this.props.state.me.date_birth}
                 onChange={this.handleChange}
                 type="date"
                 minLength={8}
@@ -137,7 +149,6 @@ export class Profile extends React.Component {
             { !this.state.readOnly &&
               <Button
                 block
-                onClick={this.switchEditionMode}
                 type="submit"
                 variant="primary"
               >
@@ -154,8 +165,8 @@ export class Profile extends React.Component {
               </Button>
               }
             </Form>
-          {this.props.state.changePassError && <div><br/>{JSON.stringify(this.props.state.changePassErrorMessage.message)}</div>}
-          {this.props.state.changePassSuccess && <div><br/>Success! You can now use your new password.</div>}
+          {this.props.state.updateUserError && <div><br/>{JSON.stringify(this.props.state.updateUserErrorMessage.message)}</div>}
+          {this.props.state.updateUserSuccess && <div><br/>Success! You can now use your new password.</div>}
         </Card.Body>
       </Card>
   	);
@@ -172,7 +183,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserData: () => dispatch(profileActions.fetchUserData()),
-    changePassword: (data) => dispatch(profileActions.changePassword(data)),
+    changeUserData: (data) => dispatch(profileActions.changeUserData(data)),
     reinitializeState: () => dispatch(profileActions.reinitializeState()),
   }
 }

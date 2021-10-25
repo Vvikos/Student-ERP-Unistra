@@ -50,26 +50,13 @@ const UserSchema = new mongoose.Schema({
     picture: {
         type: String,
         select: false,
+        default: 'https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png',
     },
     date_subscription: {
         type: String,
         select: false,
         default: null,
     },
-});
-
-UserSchema.virtual('likes', {
-    ref: 'Like',
-    localField: '_id',
-    foreignField: 'likee',
-    count: true,
-});
-
-UserSchema.virtual('liked', {
-    ref: 'Like',
-    localField: '_id',
-    foreignField: 'likee',
-    count: true,
 });
 
 UserSchema.set('toJSON', {
