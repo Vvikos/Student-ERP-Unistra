@@ -36,7 +36,7 @@ const UserSchema = new mongoose.Schema({
         trim: true,
     },
     date_birth: {
-        type: Date,
+        type: String,
         required: true,
         default: null,
     },
@@ -49,7 +49,6 @@ const UserSchema = new mongoose.Schema({
     },
     picture: {
         type: String,
-        select: false,
         default: 'https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png',
     },
     date_subscription: {
@@ -68,10 +67,10 @@ UserSchema.plugin(uniqueValidator);
 UserSchema.pre('save', function(next) {
     let user = this;
 
-    if (!user.isModified('password')) {
+    /*if (!user.isModified('password')) {
         return next();
     } else {
-    }
+    }*/
 
     bcrypt
         .genSalt(12)
@@ -86,6 +85,7 @@ UserSchema.pre('save', function(next) {
             console.log(err);
             next(err);
         });
+
 });
 
 module.exports = mongoose.model('User', UserSchema);

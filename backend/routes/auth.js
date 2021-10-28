@@ -9,7 +9,7 @@ const passport = require('passport');
 router.post('/signup', async (req, res) => {
     var errors = {};
     const user = await User.findOne({username: req.body.username});
-
+    
     const newUser = new User({
                                 username: req.body.username, 
                                 password: req.body.password, 
@@ -43,7 +43,7 @@ router.post('/login', async (req, res) => {
     }
 
     isMatch = await bcrypt.compare(password, user.password);
-
+    //isMatch = password == user.password;
     // return 400 if password does not match
     if (!isMatch) {
         errors.message = "Password is incorrect";
@@ -77,36 +77,43 @@ router.get('/me', passport.authenticate('jwt', {session: false}), async function
 
 router.post('/me/update', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
     const username = req.user.username;
-    const firstname = req.user.firstname;
-    const lastname = req.user.lastname;
-    const student_number = req.user.student_number;
-    const email = req.user.email;
-    const date_birth = req.user.date_birth;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const date_birth = req.body.date_birth;
     const oldPassword = req.body.oldpassword;
     const newPassword = req.body.password;
+
+    if (!firstname && !lastname && !email && !date_birth && !passport)
+        return res.status(200);
 
     const dbUser = await User.findOne({ username }).select("+password");
 
     if (newPassword) {
+        if (!oldPassword)
+            return res.status(400).json({message:"Please fill you current password."});
         const passwordMatch = await new Promise((resolve, reject) => {
             bcrypt.compare(oldPassword, dbUser.password,function(err, isMatch){
-                console.log(err)
+                console.log(err);
 
                 if(err) return reject(err);
-                resolve(isMatch)
-            })
-        })
+                resolve(isMatch);
+            });
+        });
         if (!passwordMatch) {
             return res.status(400).json({message:"Old password incorrect."});
         }
         dbUser.password = newPassword;
     }
-    dbUser.firstname = firstname;
-    dbUser.lastname = lastname;
-    dbUser.student_number = student_number;
-    dbUser.email = email;
-    dbUser.date_birth = date_birth;
-    console.log(dbUser);
+    if (firstname)
+        dbUser.firstname = firstname;
+    if (lastname)
+        dbUser.lastname = lastname;
+    if (email)
+        dbUser.email = email;
+    if (date_birth)
+        dbUser.date_birth = date_birth;
+    
     try {
         await dbUser.save();
     } catch (e) {

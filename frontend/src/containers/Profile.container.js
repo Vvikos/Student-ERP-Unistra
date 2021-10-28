@@ -10,9 +10,7 @@ export class Profile extends React.Component {
     super(props);
 
     this.state = {
-      password: "",
-      readOnly: true,
-      changePass: false
+      readOnly: true
     };
 
     this.switchEditionMode = this.switchEditionMode.bind(this); 
@@ -26,8 +24,7 @@ export class Profile extends React.Component {
   handleChange = event => {
     this.setState({
       [event.target.id]: event.target.value,
-    }, () => {this.setState({changePass: this.state.password });}
-    );
+    });
   }
 
   switchEditionMode() {
@@ -36,9 +33,8 @@ export class Profile extends React.Component {
     }));
   }
 
-  changeUserData(e) {
+  changeUserData() {
     this.props.changeUserData(this.state);
-    e.preventDefault();
     if(this.props.state.updateUserSuccess){
       this.setState({
         readOnly: true
@@ -59,7 +55,7 @@ export class Profile extends React.Component {
             </Col>
           </Row>
         </Container>
-          <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changeUserData(e)}}>
+          <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changeUserData()}}>
             <Form.Group controlId="username">
               <Form.Label>Username</Form.Label>
               <Form.Control
@@ -123,10 +119,11 @@ export class Profile extends React.Component {
               />
             </Form.Group>
 
-            { !this.state.readOnly && this.state.changePass &&
+            { !this.state.readOnly && this.state.password &&
               <Form.Group controlId="oldpassword">
                 <Form.Label>Old Password</Form.Label>
                 <Form.Control
+                  onChange={this.handleChange}
                   type="password"
                   minLength={8}
                 />
