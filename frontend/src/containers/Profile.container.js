@@ -13,12 +13,20 @@ export class Profile extends React.Component {
       readOnly: true
     };
 
-    this.switchEditionMode = this.switchEditionMode.bind(this); 
+    this.switchToEditionMode = this.switchToEditionMode.bind(this); 
   }
 
   componentWillMount(){
     this.props.fetchUserData();
     this.props.reinitializeState();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.state !== this.props.state) {
+      this.setState({
+        readOnly: this.props.state.updateUserSuccess
+      });
+    }
   }
 
   handleChange = event => {
@@ -27,19 +35,14 @@ export class Profile extends React.Component {
     });
   }
 
-  switchEditionMode() {
-    this.setState(prevState => ({
-      readOnly: !prevState.readOnly
-    }));
+  switchToEditionMode() {
+    this.setState({
+      readOnly: false
+    });
   }
 
   changeUserData() {
     this.props.changeUserData(this.state);
-    if(this.props.state.updateUserSuccess){
-      this.setState({
-        readOnly: true
-      });
-    }
   }
 
 
@@ -152,10 +155,10 @@ export class Profile extends React.Component {
                 Save
               </Button>
             }
-            { this.state.readOnly && 
+            { this.state.readOnly &&  
               <Button
                 block
-                onClick={this.switchEditionMode}
+                onClick={this.switchToEditionMode}
                 variant="primary"
               >
                 Edit
@@ -163,7 +166,7 @@ export class Profile extends React.Component {
               }
             </Form>
           {this.props.state.updateUserError && <div><br/>{JSON.stringify(this.props.state.updateUserErrorMessage.message)}</div>}
-          {this.props.state.updateUserSuccess && <div><br/>Success! You can now use your new password.</div>}
+          {this.props.state.updateUserSuccess && <div><br/>Profile changed with success.</div>}
         </Card.Body>
       </Card>
   	);

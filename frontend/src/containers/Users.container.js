@@ -23,8 +23,6 @@ export class Users extends React.Component {
                 <thead>
                     <tr>
                         <td>Username</td>
-                        <td># likes</td>
-                        { this.props.loginState.loggedIn && <td></td> }
                     </tr>
                 </thead>
                 <tbody>
