@@ -56,6 +56,10 @@ const UserSchema = new mongoose.Schema({
         select: false,
         default: null,
     },
+    url_photo: {
+        type:String,
+        required: false,
+    }
 });
 
 UserSchema.set('toJSON', {
