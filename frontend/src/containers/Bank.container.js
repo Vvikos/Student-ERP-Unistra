@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React from 'react';
-import logo from '../icons/transaction.png';
+import logo_trans from '../icons/transaction.png';
+import logo_money from '../icons/dollar.png';
 import { withRouter } from 'react-router-dom'
 import { Table, Accordion, Button, Card, Image, Container, Row, Col } from "react-bootstrap";
 import * as bankActions from "../actions/Bank.actions";
@@ -51,9 +52,21 @@ export class Bank extends React.Component {
   	return (
   		<Row style={{ width: '95%', margin: '0 auto', marginTop:'30px' }}>
         <Col xs lg="4">
-          <Card style={{ width: '100%', margin: '0 auto', marginTop:'30px' }}>
+          <Card style={{ width: '100%', margin: '0 auto', marginTop:'30px', border:'none' }}>
             <Card.Body>
               <Card.Title>Balance</Card.Title>
+              <Container>
+                <Row>
+                  <Col xs={6} md={4}>
+                    <Image src={logo_money} width={30} height={30} />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={6} md={4}>
+                    120 €
+                  </Col>
+                </Row>
+              </Container>
             </Card.Body>
           </Card>
         </Col>
@@ -64,18 +77,18 @@ export class Bank extends React.Component {
             <Table hover>
               <tbody>
                 <tr>
-                  <td><Image src={logo} width={30} height={30} /></td>
-                  <td colSpan="2">29/09/2021</td>
+                  <td><Image src={logo_trans} width={30} height={30} /></td>
+                  <td colSpan="3">29/09/2021</td>
                   <td>-8€</td>
                 </tr>
                 <tr>
-                  <td><Image src={logo} width={30} height={30} /></td>
-                  <td colSpan="2">29/09/2021</td>
+                  <td><Image src={logo_trans} width={30} height={30} /></td>
+                  <td colSpan="3">29/09/2021</td>
                   <td>-8€</td>
                 </tr>
                 <tr>
-                  <td><Image src={logo} width={30} height={30} /></td>
-                  <td colSpan="2">29/09/2021</td>
+                  <td><Image src={logo_trans} width={30} height={30} /></td>
+                  <td colSpan="3">29/09/2021</td>
                   <td>-8€</td>
                 </tr>
               </tbody>
