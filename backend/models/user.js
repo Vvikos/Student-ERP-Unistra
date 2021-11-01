@@ -10,6 +10,24 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
+    password: {
+        type: String,
+        required: true,
+        minlength: 8,
+        select: false,
+    },
+    lastname: {
+        type: String,
+        required: true,
+        minlength: 1,
+        select: true,
+    },
+    firstname: {
+        type: String,
+        required: true,
+        minlength: 1,
+        select: true,
+    },
     email: {
         type: String,
         required: true,
@@ -17,30 +35,31 @@ const UserSchema = new mongoose.Schema({
         unique: true,
         trim: true,
     },
-    password: {
+    date_birth: {
         type: String,
         required: true,
+        default: null,
+    },
+    student_number: {
+        type: Number,
+        required: true,
         minlength: 8,
+        maxlength: 8,
+        select: true,
+    },
+    picture: {
+        type: String,
+        default: 'https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png',
+    },
+    date_subscription: {
+        type: String,
         select: false,
+        default: null,
     },
     url_photo: {
         type:String,
         required: false,
     }
-});
-
-UserSchema.virtual('likes', {
-    ref: 'Like',
-    localField: '_id',
-    foreignField: 'likee',
-    count: true,
-});
-
-UserSchema.virtual('liked', {
-    ref: 'Like',
-    localField: '_id',
-    foreignField: 'likee',
-    count: true,
 });
 
 UserSchema.set('toJSON', {
@@ -52,10 +71,10 @@ UserSchema.plugin(uniqueValidator);
 UserSchema.pre('save', function(next) {
     let user = this;
 
-    if (!user.isModified('password')) {
+    /*if (!user.isModified('password')) {
         return next();
     } else {
-    }
+    }*/
 
     bcrypt
         .genSalt(12)
@@ -70,6 +89,7 @@ UserSchema.pre('save', function(next) {
             console.log(err);
             next(err);
         });
+
 });
 
 module.exports = mongoose.model('User', UserSchema);

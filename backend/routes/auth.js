@@ -9,8 +9,16 @@ const passport = require('passport');
 router.post('/signup', async (req, res) => {
     var errors = {};
     const user = await User.findOne({username: req.body.username});
-
-    const newUser = new User({...req.body});
+    
+    const newUser = new User({
+                                username: req.body.username, 
+                                password: req.body.password, 
+                                lastname: req.body.lastname,
+                                firstname: req.body.firstname,
+                                email: req.body.email,
+                                date_birth: req.body.date_birth,
+                                student_number: req.body.student_number
+                            });
 
     try {
         await newUser.save();
@@ -35,7 +43,7 @@ router.post('/login', async (req, res) => {
     }
 
     isMatch = await bcrypt.compare(password, user.password);
-
+    //isMatch = password == user.password;
     // return 400 if password does not match
     if (!isMatch) {
         errors.message = "Password is incorrect";
@@ -67,28 +75,45 @@ router.get('/me', passport.authenticate('jwt', {session: false}), async function
     res.status(200).json(dbUser);
 });
 
-router.post('/me/update-password', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
+router.post('/me/update', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
     const username = req.user.username;
+    const firstname = req.body.firstname;
+    const lastname = req.body.lastname;
+    const email = req.body.email;
+    const date_birth = req.body.date_birth;
     const oldPassword = req.body.oldpassword;
     const newPassword = req.body.password;
 
+    if (!firstname && !lastname && !email && !date_birth && !passport)
+        return res.status(200);
+
     const dbUser = await User.findOne({ username }).select("+password");
 
-    const passwordMatch = await new Promise((resolve, reject) => {
-        bcrypt.compare(oldPassword, dbUser.password,function(err, isMatch){
-            console.log(err)
+    if (newPassword) {
+        if (!oldPassword)
+            return res.status(400).json({message:"Please fill you current password."});
+        const passwordMatch = await new Promise((resolve, reject) => {
+            bcrypt.compare(oldPassword, dbUser.password,function(err, isMatch){
+                console.log(err);
 
-            if(err) return reject(err);
-            resolve(isMatch)
-        })
-    })
-    if (!passwordMatch) {
-        return res.status(400).json({message:"Old password incorrect."});
+                if(err) return reject(err);
+                resolve(isMatch);
+            });
+        });
+        if (!passwordMatch) {
+            return res.status(400).json({message:"Old password incorrect."});
+        }
+        dbUser.password = newPassword;
     }
-
-    console.log(dbUser)
-    dbUser.password = newPassword;
-    console.log(dbUser.password)
+    if (firstname)
+        dbUser.firstname = firstname;
+    if (lastname)
+        dbUser.lastname = lastname;
+    if (email)
+        dbUser.email = email;
+    if (date_birth)
+        dbUser.date_birth = date_birth;
+    
     try {
         await dbUser.save();
     } catch (e) {

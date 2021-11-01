@@ -6,6 +6,7 @@ import Users from './containers/Users.container';
 import SignUp from './containers/SignUp.container';
 import Login from './containers/Login.container';
 import Profile from './containers/Profile.container';
+import Bank from './containers/Bank.container';
 import { Navbar, Nav } from 'react-bootstrap';
 import {userService} from "./services/authentication.service";
 import * as loginActions from './actions/Login.actions';
@@ -55,6 +56,11 @@ class App extends Component {
                     </Nav.Link>
                   }
                   { this.props.loginState.loggedIn &&
+                    <Nav.Link as={Link} to="/bank/">
+                      Bank
+                    </Nav.Link>
+                  }
+                  { this.props.loginState.loggedIn &&
                   <Nav.Link as={Link} to="/" onClick={(e) => {e.preventDefault(); this.props.logoutRequest()}} >
                     Log out
                   </Nav.Link>
@@ -74,6 +80,7 @@ class App extends Component {
               <Route path="/signup/" component={SignUp} />
               <Route path="/login/" component={Login} />
               <PrivateRoute path="/profile/" component={Profile} />
+              <PrivateRoute path="/bank/" component={Bank} />
             </div>
           </Router>
     );
