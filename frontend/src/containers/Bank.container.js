@@ -52,29 +52,24 @@ export class Bank extends React.Component {
   	return (
   		<Row style={{ width: '95%', margin: '0 auto', marginTop:'30px' }}>
         <Col xs lg="4">
-          <Card style={{ width: '100%', margin: '0 auto', marginTop:'30px', border:'none' }}>
+          <Card style={{ width: '100%', margin: '0 auto', marginTop:'200px', border:'none', textAlign: "center"}}>
             <Card.Body>
               <Card.Title>Balance</Card.Title>
-              <Container>
-                <Row>
-                  <Col xs={6} md={4}>
-                    <Image src={logo_money} width={30} height={30} />
-                  </Col>
-                </Row>
-                <Row>
-                  <Col xs={6} md={4}>
-                    120 €
-                  </Col>
-                </Row>
-              </Container>
+              <Card.Text style={{display: 'flex', justifyContent: 'center'}}>
+                <Image src={logo_money} width={50} height={50} />
+              </Card.Text>
+              <Card.Text style={{display: 'flex', justifyContent: 'center', fontSize:"20px", fontWeight:"bold"}}>
+                120 €
+              </Card.Text>
+              <Button variant="primary">Ajouter des fonds </Button>
             </Card.Body>
           </Card>
         </Col>
         <Col>
-          <Card style={{ width: '100%', margin: '0 auto', marginTop:'30px' }}>
+          <Card style={{ width: '100%', border:'none', margin: '0 auto', marginTop:'30px' }}>
             <Card.Body>
               <Card.Title>Transactions</Card.Title>
-            <Table hover>
+            <Table hover style={{ marginTop:'50px' }}>
               <tbody>
                 <tr>
                   <td><Image src={logo_trans} width={30} height={30} /></td>
