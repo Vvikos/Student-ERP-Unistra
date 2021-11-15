@@ -3,7 +3,7 @@ import React from 'react';
 import logo_trans from '../icons/transaction.png';
 import logo_money from '../icons/dollar.png';
 import { withRouter } from 'react-router-dom'
-import { Table, Accordion, Button, Card, Image, Container, Row, Col } from "react-bootstrap";
+import { Table, Button, Card, Image, Row, Col } from "react-bootstrap";
 import * as bankActions from "../actions/Bank.actions";
 
 export class Bank extends React.Component {
@@ -52,14 +52,14 @@ export class Bank extends React.Component {
   	return (
   		<Row style={{ width: '95%', margin: '0 auto', marginTop:'30px' }}>
         <Col xs lg="4">
-          <Card style={{ width: '100%', margin: '0 auto', marginTop:'200px', border:'none', textAlign: "center"}}>
+          <Card className="block-example border border-dark" style={{ width: '100%', margin: '0 auto', marginTop:'200px', border:'none', textAlign: "center"}}>
             <Card.Body>
-              <Card.Title>Balance</Card.Title>
+              <Card.Title>Compte</Card.Title>
               <Card.Text style={{display: 'flex', justifyContent: 'center'}}>
                 <Image src={logo_money} width={50} height={50} />
               </Card.Text>
               <Card.Text style={{display: 'flex', justifyContent: 'center', fontSize:"20px", fontWeight:"bold"}}>
-                120 €
+                <div className="p-3 block-example border border-dark rounded-pill">120 €</div>
               </Card.Text>
               <Button variant="primary">Ajouter des fonds </Button>
             </Card.Body>

@@ -18,11 +18,11 @@ export class Users extends React.Component {
   	return (
   		<Card style={{ width: '90vw', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
-            <Card.Title>Users</Card.Title>
+            <Card.Title>Utilisateurs</Card.Title>
 	  		<Table striped bordered hover>
                 <thead>
                     <tr>
-                        <td>Username</td>
+                        <td>Nom d'utilisateur</td>
                     </tr>
                 </thead>
                 <tbody>
@@ -31,8 +31,8 @@ export class Users extends React.Component {
 			    })}
                 </tbody>
 		    </Table>
-		    {this.props.state.error && <div>Error while fetching users.</div>}
-		  	{this.props.state.loading && <div>Loading users...</div>}
+		    {this.props.state.error && <div>Une erreur est survenue pendant le chargement des utilisateurs.</div>}
+		  	{this.props.state.loading && <div>Chargement...</div>}
 	    </Card.Body>
 	    </Card>
   	);

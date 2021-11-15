@@ -13,9 +13,15 @@ export const logoutSuccess = () => {
     }
 }
 
-export const loginSuccess = () => {
+export const loginSuccessWaitForPayment = () => {
     return {
-        type:'LOGIN_SUCCESS'
+        type:'LOGIN_SUCCESS_WAIT_PAYMENT'
+    }
+}
+
+export const loginSuccesPaymentDone = () => {
+    return {
+        type:'LOGIN_SUCCESS_PAYMENT_DONE'
     }
 }
 
@@ -47,11 +53,18 @@ export const login = (loginData, ownProps) => {
 
         if(response.ok){
             response.json().then(data => {
-                dispatch(loginSuccess(data));
                 userService.setToken(data.token);
                 dispatch(fetchUserData());
                 ownProps.history.push('/');
-                // TODO: redirect to home
+                // TODO: do another request to know if user paid adhesion
+                var paid=true;
+                if(paid){
+                    userService.setAdhesion(true);
+                    dispatch(loginSuccesPaymentDone(data));
+                } else {
+                    userService.setToken(false);
+                    dispatch(loginSuccessWaitForPayment(data));
+                }
             }).catch(err => dispatch(loginFailed(err)));
         }
         else{

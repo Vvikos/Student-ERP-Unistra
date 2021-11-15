@@ -40,10 +40,10 @@ export class Login extends React.Component {
   	return (
       <Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
-          <Card.Title>Login</Card.Title>
+          <Card.Title>Se connecter</Card.Title>
           <Form onSubmit={(e) => this.login(e)}>
             <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>Nom d'utilisateur</Form.Label>
               <Form.Control
                 autoFocus
                 type="text"
@@ -52,7 +52,7 @@ export class Login extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Mot de passe</Form.Label>
               <Form.Control
                 value={this.state.password}
                 onChange={this.handleChange}
@@ -65,7 +65,7 @@ export class Login extends React.Component {
               type="submit"
               variant="primary"
             >
-              Login
+              Se connecter
             </Button>
             {this.props.state.loading && <div><br/>Logging you in...</div>}
             {this.props.state.error && <div><br/>{JSON.stringify(this.props.state.errorMessage.message)}</div>}

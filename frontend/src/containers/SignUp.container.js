@@ -45,10 +45,10 @@ export class SignUp extends React.Component {
   	return (
   		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
-          <Card.Title>Register</Card.Title>
+          <Card.Title>S'inscrire</Card.Title>
           <Form onSubmit={(e) => this.register(e)}>
             <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>Nom d'utilisatuer</Form.Label>
               <Form.Control
                 autoFocus
                 type="text"
@@ -57,7 +57,7 @@ export class SignUp extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="firstname">
-              <Form.Label>Firstname</Form.Label>
+              <Form.Label>Prénom</Form.Label>
               <Form.Control
                 autoFocus
                 type="text"
@@ -67,7 +67,7 @@ export class SignUp extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="lastname">
-              <Form.Label>Lastname</Form.Label>
+              <Form.Label>Nom</Form.Label>
               <Form.Control
                 autoFocus
                 type="text"
@@ -85,7 +85,7 @@ export class SignUp extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Mot de passe</Form.Label>
               <Form.Control
                 value={this.state.password}
                 onChange={this.handleChange}
@@ -94,7 +94,7 @@ export class SignUp extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="date_birth" bsSize="large">
-              <Form.Label>Birthday</Form.Label>
+              <Form.Label>Date d'anniversaire</Form.Label>
               <Form.Control
                 type="date"
                 value={this.state.date_birth}
@@ -102,7 +102,7 @@ export class SignUp extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="student_number">
-              <Form.Label>Student number</Form.Label>
+              <Form.Label>Numéro Etudiant</Form.Label>
               <Form.Control
                 type="text"
                 minLength={8}
@@ -117,11 +117,11 @@ export class SignUp extends React.Component {
               type="submit"
               variant="primary"
             >
-              Register
+              S'inscrire
             </Button>
-            {this.props.state.loading && <div><br/>Registering you...</div>}
+            {this.props.state.loading && <div><br/>Veuillez patienter...</div>}
             {this.props.state.error && <div><br/>{JSON.stringify(this.props.state.errorMessage.message)}</div>}
-            {this.props.state.success && <div><br/>Success! You can now log in.</div>}
+            {this.props.state.success && <div><br/>Vous etes inscrit! Vous pouvez vous connecter.</div>}
           </Form>
         </Card.Body>
       </Card>

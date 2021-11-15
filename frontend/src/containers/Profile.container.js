@@ -50,7 +50,7 @@ export class Profile extends React.Component {
   	return (
   		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
-          <Card.Title>Profile</Card.Title>
+          <Card.Title>Profil</Card.Title>
           <Container>
           <Row>
             <Col xs={6} md={4}>
@@ -60,7 +60,7 @@ export class Profile extends React.Component {
         </Container>
           <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changeUserData()}}>
             <Form.Group controlId="username">
-              <Form.Label>Username</Form.Label>
+              <Form.Label>Nom d'utilisateur</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.username}
                 onChange={this.handleChange}
@@ -71,7 +71,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="firstname">
-              <Form.Label>First name</Form.Label>
+              <Form.Label>Prénom</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.firstname}
                 onChange={this.handleChange}
@@ -81,7 +81,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="lastname">
-              <Form.Label>Last Name</Form.Label>
+              <Form.Label>Nom</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.lastname}
                 onChange={this.handleChange}
@@ -91,7 +91,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="student_number">
-              <Form.Label>No Student</Form.Label>
+              <Form.Label>Numéro Etudiant</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.student_number}
                 onChange={this.handleChange}
@@ -102,7 +102,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="email">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>E-mail</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.email}
                 onChange={this.handleChange}
@@ -112,7 +112,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="date_birth">
-              <Form.Label>Date Birth</Form.Label>
+              <Form.Label>Date d'anniversaire</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.date_birth}
                 onChange={this.handleChange}
@@ -124,7 +124,7 @@ export class Profile extends React.Component {
 
             { !this.state.readOnly && this.state.password &&
               <Form.Group controlId="oldpassword">
-                <Form.Label>Old Password</Form.Label>
+                <Form.Label>Ancien mot de passe</Form.Label>
                 <Form.Control
                   onChange={this.handleChange}
                   type="password"
@@ -134,7 +134,7 @@ export class Profile extends React.Component {
             }
             { !this.state.readOnly &&
             <Form.Group controlId="password">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Mot de passe</Form.Label>
                 <Form.Control
                   onClick={(e) => {
                     this.setState({changePass: true});
@@ -152,7 +152,7 @@ export class Profile extends React.Component {
                 type="submit"
                 variant="primary"
               >
-                Save
+                Enregistrer
               </Button>
             }
             { this.state.readOnly &&  
@@ -161,12 +161,12 @@ export class Profile extends React.Component {
                 onClick={this.switchToEditionMode}
                 variant="primary"
               >
-                Edit
+                Modifier
               </Button>
               }
             </Form>
           {this.props.state.updateUserError && <div><br/>{JSON.stringify(this.props.state.updateUserErrorMessage.message)}</div>}
-          {this.props.state.updateUserSuccess && <div><br/>Profile changed with success.</div>}
+          {this.props.state.updateUserSuccess && <div><br/>Profil modifié avec succès.</div>}
         </Card.Body>
       </Card>
   	);

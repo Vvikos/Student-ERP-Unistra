@@ -2,6 +2,8 @@ import decode from 'jwt-decode';
 
 export const userService = {
     loggedIn:loggedIn,
+    getAdhesion:getAdhesion,
+    setAdhesion:setAdhesion,
     setToken:setToken,
     isTokenExpired:isTokenExpired,
     getToken:getToken,
@@ -28,6 +30,14 @@ function isTokenExpired(token) {
             return false;
         }
     }
+
+function getAdhesion() {
+    return localStorage.getItem('adhesion')
+}
+
+function setAdhesion(adhesionExists) {
+    return localStorage.setItem('adhesion', adhesionExists)
+}
 
 function setToken(idToken) {
     localStorage.setItem('id_token', idToken)
