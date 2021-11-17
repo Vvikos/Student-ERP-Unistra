@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router-dom'
 import * as signupActions from '../actions/SignUp.actions';
-import { Form, Button, Card } from "react-bootstrap";
+import { Form, Button, Card, Nav } from "react-bootstrap";
+import { Link, Redirect} from "react-router-dom";
 
 export class SignUp extends React.Component {
 
@@ -43,88 +44,97 @@ export class SignUp extends React.Component {
 
   render() {
   	return (
-  		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
-        <Card.Body>
-          <Card.Title>S'inscrire</Card.Title>
-          <Form onSubmit={(e) => this.register(e)}>
-            <Form.Group controlId="username">
-              <Form.Label>Nom d'utilisatuer</Form.Label>
-              <Form.Control
-                autoFocus
-                type="text"
-                value={this.state.username}
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="firstname">
-              <Form.Label>Prénom</Form.Label>
-              <Form.Control
-                autoFocus
-                type="text"
-                minLength={1}
-                value={this.state.firstname}
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="lastname">
-              <Form.Label>Nom</Form.Label>
-              <Form.Control
-                autoFocus
-                type="text"
-                minLength={1}
-                value={this.state.lastname}
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="email">
-              <Form.Label>E-mail</Form.Label>
-              <Form.Control
-                value={this.state.email}
-                onChange={this.handleChange}
-                type="email"
-              />
-            </Form.Group>
-            <Form.Group controlId="password">
-              <Form.Label>Mot de passe</Form.Label>
-              <Form.Control
-                value={this.state.password}
-                onChange={this.handleChange}
-                type="password"
-                minLength={8}
-              />
-            </Form.Group>
-            <Form.Group controlId="date_birth" bsSize="large">
-              <Form.Label>Date d'anniversaire</Form.Label>
-              <Form.Control
-                type="date"
-                value={this.state.date_birth}
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Form.Group controlId="student_number">
-              <Form.Label>Numéro Etudiant</Form.Label>
-              <Form.Control
-                type="text"
-                minLength={8}
-                maxLength={8}
-                value={this.state.student_number}
-                onChange={this.handleChange}
-              />
-            </Form.Group>
-            <Button
-              block
-              disabled={!this.validateForm()}
-              type="submit"
-              variant="primary"
-            >
-              S'inscrire
-            </Button>
-            {this.props.state.loading && <div><br/>Veuillez patienter...</div>}
-            {this.props.state.error && <div><br/>{JSON.stringify(this.props.state.errorMessage.message)}</div>}
-            {this.props.state.success && <div><br/>Vous etes inscrit! Vous pouvez vous connecter.</div>}
-          </Form>
-        </Card.Body>
-      </Card>
+      <div>
+    		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
+          <Card.Body>
+            <Card.Title>S'inscrire</Card.Title>
+            <Form onSubmit={(e) => this.register(e)}>
+              <Form.Group controlId="username">
+                <Form.Label>Nom d'utilisateur</Form.Label>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  value={this.state.username}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="firstname">
+                <Form.Label>Prénom</Form.Label>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  minLength={1}
+                  value={this.state.firstname}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="lastname">
+                <Form.Label>Nom</Form.Label>
+                <Form.Control
+                  autoFocus
+                  type="text"
+                  minLength={1}
+                  value={this.state.lastname}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="email">
+                <Form.Label>E-mail</Form.Label>
+                <Form.Control
+                  value={this.state.email}
+                  onChange={this.handleChange}
+                  type="email"
+                />
+              </Form.Group>
+              <Form.Group controlId="password">
+                <Form.Label>Mot de passe</Form.Label>
+                <Form.Control
+                  value={this.state.password}
+                  onChange={this.handleChange}
+                  type="password"
+                  minLength={8}
+                />
+              </Form.Group>
+              <Form.Group controlId="date_birth" bsSize="large">
+                <Form.Label>Date d'anniversaire</Form.Label>
+                <Form.Control
+                  type="date"
+                  value={this.state.date_birth}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="student_number">
+                <Form.Label>Numéro Etudiant</Form.Label>
+                <Form.Control
+                  type="text"
+                  minLength={8}
+                  maxLength={8}
+                  value={this.state.student_number}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Button
+                block
+                disabled={!this.validateForm()}
+                type="submit"
+                variant="primary"
+              >
+                S'inscrire
+              </Button>
+              {this.props.state.loading && <div><br/>Veuillez patienter...</div>}
+              {this.props.state.error && <div><br/>{JSON.stringify(this.props.state.errorMessage.message)}</div>}
+              {this.props.state.success && <Redirect to="/login" />}
+            </Form>
+          </Card.Body>
+        </Card>
+        <footer class="footer mt-auto py-3">
+          <div class="container" style={{ textAlign : "center"}}>
+            <Nav.Link as={Link} to="/privacy/">
+              Politique de confidentialité
+            </Nav.Link>
+          </div>
+        </footer>
+      </div>
   	);
   }
 }

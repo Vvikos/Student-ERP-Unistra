@@ -1,8 +1,9 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { withRouter } from 'react-router-dom'
-import { Form, Button, Card, Image, Container, Row, Col } from "react-bootstrap";
+import { Form, Button, Card, Image, Container, Row, Col, Nav } from "react-bootstrap";
 import * as profileActions from "../actions/Profile.actions";
+import {Link} from "react-router-dom";
 
 export class Profile extends React.Component {
 
@@ -13,7 +14,7 @@ export class Profile extends React.Component {
       readOnly: true
     };
 
-    this.switchToEditionMode = this.switchToEditionMode.bind(this); 
+    this.switchToEditionMode = this.switchToEditionMode.bind(this);
   }
 
   componentWillMount(){
@@ -48,6 +49,7 @@ export class Profile extends React.Component {
 
   render() {
   	return (
+      <div>
   		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
           <Card.Title>Profil</Card.Title>
@@ -155,7 +157,7 @@ export class Profile extends React.Component {
                 Enregistrer
               </Button>
             }
-            { this.state.readOnly &&  
+            { this.state.readOnly &&
               <Button
                 block
                 onClick={this.switchToEditionMode}
@@ -169,6 +171,15 @@ export class Profile extends React.Component {
           {this.props.state.updateUserSuccess && <div><br/>Profil modifié avec succès.</div>}
         </Card.Body>
       </Card>
+
+      <footer class="footer mt-auto py-3">
+        <div class="container" style={{ textAlign : "center"}}>
+        <Nav.Link as={Link} to="/privacy/">
+          Politique de confidentialité
+        </Nav.Link>
+        </div>
+      </footer>
+      </div>
   	);
   }
 }

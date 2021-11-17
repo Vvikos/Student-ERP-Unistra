@@ -3,8 +3,10 @@ import React from 'react';
 import logo_trans from '../icons/transaction.png';
 import logo_money from '../icons/dollar.png';
 import { withRouter } from 'react-router-dom'
-import { Table, Button, Card, Image, Row, Col } from "react-bootstrap";
+import { Table, Button, Card, Image, Row, Col, Nav } from "react-bootstrap";
 import * as bankActions from "../actions/Bank.actions";
+import { Link} from "react-router-dom";
+
 
 export class Bank extends React.Component {
 
@@ -15,7 +17,7 @@ export class Bank extends React.Component {
       readOnly: true
     };
 
-    this.switchToEditionMode = this.switchToEditionMode.bind(this); 
+    this.switchToEditionMode = this.switchToEditionMode.bind(this);
   }
 
   componentWillMount(){
@@ -50,6 +52,7 @@ export class Bank extends React.Component {
 
   render() {
   	return (
+      <div>
   		<Row style={{ width: '95%', margin: '0 auto', marginTop:'30px' }}>
         <Col xs lg="4">
           <Card className="block-example border border-dark" style={{ width: '100%', margin: '0 auto', marginTop:'200px', border:'none', textAlign: "center"}}>
@@ -94,6 +97,14 @@ export class Bank extends React.Component {
           {this.props.state.updateUserError && <div><br/>{JSON.stringify(this.props.state.updateUserErrorMessage.message)}</div>}
           {this.props.state.updateUserSuccess && <div><br/>Success! You can now use your new password.</div>}
       </Row>
+      <footer class="footer mt-auto">
+        <div class="container" style={{ textAlign : "center"}}>
+        <Nav.Link as={Link} to="/privacy/">
+          Politique de confidentialité
+        </Nav.Link>
+        </div>
+      </footer>
+      </div>
   	);
   }
 }

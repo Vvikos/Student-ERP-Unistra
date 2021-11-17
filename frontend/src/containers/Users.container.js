@@ -3,7 +3,8 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 import * as userActions from '../actions/Users.actions';
 import { User } from '../components/User.component';
-import { Card, Table } from 'react-bootstrap';
+import { Card, Table, Nav } from 'react-bootstrap';
+import { Link} from "react-router-dom";
 
 export class Users extends React.Component {
   // constructor(props){
@@ -16,6 +17,7 @@ export class Users extends React.Component {
 
   render() {
   	return (
+      <div>
   		<Card style={{ width: '90vw', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
             <Card.Title>Utilisateurs</Card.Title>
@@ -35,6 +37,14 @@ export class Users extends React.Component {
 		  	{this.props.state.loading && <div>Chargement...</div>}
 	    </Card.Body>
 	    </Card>
+      <footer class="footer mt-auto py-3">
+        <div class="container" style={{ textAlign : "center"}}>
+        <Nav.Link as={Link} to="/privacy/">
+          Politique de confidentialité
+        </Nav.Link>
+        </div>
+      </footer>
+      </div>
   	);
   }
 }

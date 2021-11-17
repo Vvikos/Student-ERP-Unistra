@@ -5,6 +5,7 @@ import {BrowserRouter as Router, Route, Link, Redirect} from "react-router-dom";
 import Users from './containers/Users.container';
 import SignUp from './containers/SignUp.container';
 import Login from './containers/Login.container';
+import Privacy from './containers/Privacy.container'
 import Profile from './containers/Profile.container';
 import Bank from './containers/Bank.container';
 import { Navbar, Nav, Modal, Button } from 'react-bootstrap';
@@ -66,7 +67,7 @@ class App extends Component {
                     </Nav.Link>
                   }
                 </Nav>
-                
+
                 {this.props.loginState.loggedIn &&
                   <Navbar.Collapse className="justify-content-end">
                     <Navbar.Text>
@@ -103,6 +104,7 @@ class App extends Component {
               <Route path="/" exact component={Users} />
               <Route path="/signup/" component={SignUp} />
               <Route path="/login/" component={Login} />
+              <Route path="/privacy/" component={Privacy} />
               <PrivateRoute path="/profile/" component={Profile} />
               <PrivateRoute path="/bank/" component={Bank} />
             </div>
