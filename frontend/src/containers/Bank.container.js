@@ -97,8 +97,8 @@ export class Bank extends React.Component {
           {this.props.state.updateUserError && <div><br/>{JSON.stringify(this.props.state.updateUserErrorMessage.message)}</div>}
           {this.props.state.updateUserSuccess && <div><br/>Success! You can now use your new password.</div>}
       </Row>
-      <footer class="footer mt-auto">
-        <div class="container" style={{ textAlign : "center"}}>
+      <footer className="footer mt-auto">
+        <div className="container" style={{ textAlign : "center"}}>
         <Nav.Link as={Link} to="/privacy/">
           Politique de confidentialité
         </Nav.Link>

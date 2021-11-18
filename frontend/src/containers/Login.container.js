@@ -75,8 +75,8 @@ export class Login extends React.Component {
           </Form>
         </Card.Body>
       </Card>
-      <footer class="footer mt-auto py-3" >
-        <div class="container" style={{ textAlign : "center"}}>
+      <footer className="footer mt-auto py-3" >
+        <div className="container" style={{ textAlign : "center"}}>
           <Nav.Link as={Link} to="/privacy/">
             Politique de confidentialité
           </Nav.Link>
