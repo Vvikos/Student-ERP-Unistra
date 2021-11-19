@@ -18,6 +18,7 @@ export class SignUp extends React.Component {
       email: "",
       student_number: null,
       date_birth: "",
+      accept_condition: false
     };
     this.register = this.register.bind(this);
   }
@@ -32,13 +33,21 @@ export class SignUp extends React.Component {
   }
 
   validateForm() {
-    return this.state.username.length > 0 && this.state.password.length > 0;
+    return this.state.username.length > 0 && this.state.password.length > 0 && this.state.accept_condition === true;
   }
 
   handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value
-    });
+    if(event.target.id === "accept_condition"){
+      this.setState({
+        [event.target.id]: event.target.checked
+      });
+    } else {
+      this.setState({
+        [event.target.id]: event.target.value
+      });
+    }
+
+
   }
 
 
@@ -110,6 +119,14 @@ export class SignUp extends React.Component {
                   minLength={8}
                   maxLength={8}
                   value={this.state.student_number}
+                  onChange={this.handleChange}
+                />
+              </Form.Group>
+              <Form.Group controlId="accept_condition">
+                <Form.Check
+                  type="checkbox"
+                  label="En soumettant ce formulaire, j'accepte la politique de confidentialité"
+                  checked={this.state.accept_condition}
                   onChange={this.handleChange}
                 />
               </Form.Group>

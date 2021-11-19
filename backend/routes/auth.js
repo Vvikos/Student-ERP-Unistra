@@ -9,15 +9,16 @@ const passport = require('passport');
 router.post('/signup', async (req, res) => {
     var errors = {};
     const user = await User.findOne({username: req.body.username});
-    
+
     const newUser = new User({
-                                username: req.body.username, 
-                                password: req.body.password, 
+                                username: req.body.username,
+                                password: req.body.password,
                                 lastname: req.body.lastname,
                                 firstname: req.body.firstname,
                                 email: req.body.email,
                                 date_birth: req.body.date_birth,
-                                student_number: req.body.student_number
+                                student_number: req.body.student_number,
+                                accept_condition: req.accept_condition
                             });
 
     try {
@@ -113,7 +114,7 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
         dbUser.email = email;
     if (date_birth)
         dbUser.date_birth = date_birth;
-    
+
     try {
         await dbUser.save();
     } catch (e) {
