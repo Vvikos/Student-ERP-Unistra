@@ -16,14 +16,14 @@ export class SignUp extends React.Component {
       firstname: "",
       lastname: "",
       email: "",
-      student_number: null,
+      student_number: "",
       date_birth: "",
       accept_condition: false
     };
     this.register = this.register.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.reinitializeState();
   }
 
@@ -104,7 +104,7 @@ export class SignUp extends React.Component {
                   minLength={8}
                 />
               </Form.Group>
-              <Form.Group controlId="date_birth" bsSize="large">
+              <Form.Group controlId="date_birth" bssize="large">
                 <Form.Label>Date d'anniversaire</Form.Label>
                 <Form.Control
                   type="date"

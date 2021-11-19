@@ -37,7 +37,6 @@ export const fetchUserData = () => {
 
         if(response.ok){
             response.json().then(data => {
-                console.log(data);
                 dispatch(profileDataFetchSuccess(data));
             }).catch(err => dispatch(profileDataFetchFailure(err)));
         }

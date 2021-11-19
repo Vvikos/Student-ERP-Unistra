@@ -20,7 +20,7 @@ export class Bank extends React.Component {
     this.switchToEditionMode = this.switchToEditionMode.bind(this);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchUserData();
     this.props.reinitializeState();
   }
@@ -59,11 +59,11 @@ export class Bank extends React.Component {
             <Card.Body>
               <Card.Title>Compte</Card.Title>
               <Card.Text style={{display: 'flex', justifyContent: 'center'}}>
-                <Image src={logo_money} width={50} height={50} />
+                <Image src={logo_money} alt="argent" width={50} height={50} />
               </Card.Text>
-              <Card.Text style={{display: 'flex', justifyContent: 'center', fontSize:"20px", fontWeight:"bold"}}>
+              <div style={{display: 'flex', justifyContent: 'center', fontSize:"20px", fontWeight:"bold"}}>
                 <div className="p-3 block-example border border-dark rounded-pill">120 €</div>
-              </Card.Text>
+              </div>
               <Button variant="primary">Ajouter des fonds </Button>
             </Card.Body>
           </Card>
@@ -75,17 +75,17 @@ export class Bank extends React.Component {
             <Table hover style={{ marginTop:'50px' }}>
               <tbody>
                 <tr>
-                  <td><Image src={logo_trans} width={30} height={30} /></td>
+                  <td><Image src={logo_trans} alt="transaction" width={30} height={30} /></td>
                   <td colSpan="3">29/09/2021</td>
                   <td>-8€</td>
                 </tr>
                 <tr>
-                  <td><Image src={logo_trans} width={30} height={30} /></td>
+                  <td><Image src={logo_trans} alt="transaction" width={30} height={30} /></td>
                   <td colSpan="3">29/09/2021</td>
                   <td>-8€</td>
                 </tr>
                 <tr>
-                  <td><Image src={logo_trans} width={30} height={30} /></td>
+                  <td><Image src={logo_trans} alt="transaction" width={30} height={30} /></td>
                   <td colSpan="3">29/09/2021</td>
                   <td>-8€</td>
                 </tr>

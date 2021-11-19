@@ -19,7 +19,7 @@ export class Login extends React.Component {
     this.login = this.login.bind(this);
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.reinitializeState();
   }
 

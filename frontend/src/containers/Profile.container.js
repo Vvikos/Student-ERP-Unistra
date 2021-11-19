@@ -17,7 +17,7 @@ export class Profile extends React.Component {
     this.switchToEditionMode = this.switchToEditionMode.bind(this);
   }
 
-  componentWillMount(){
+  componentDidMount(){
     this.props.fetchUserData();
     this.props.reinitializeState();
   }
@@ -56,7 +56,7 @@ export class Profile extends React.Component {
           <Container>
           <Row>
             <Col xs={6} md={4}>
-              <Image src={this.props.state.me.picture} width={210} height={210} roundedCircle />
+              <Image src={this.props.state.me.picture} alt="avatar" width={210} height={210} roundedCircle />
             </Col>
           </Row>
         </Container>
