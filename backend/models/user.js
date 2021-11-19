@@ -43,6 +43,7 @@ const UserSchema = new mongoose.Schema({
     student_number: {
         type: Number,
         required: true,
+        unique: true,
         minlength: 8,
         maxlength: 8,
         select: true,
@@ -52,7 +53,7 @@ const UserSchema = new mongoose.Schema({
         default: 'https://cdn.pixabay.com/photo/2018/09/06/18/26/person-3658927_960_720.png',
     },
     date_subscription: {
-        type: String,
+        type: Date,
         select: false,
         default: null,
     },

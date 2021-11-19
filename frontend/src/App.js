@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Link, Redirect} from "react-router-dom";
-import Users from './containers/Users.container';
 import SignUp from './containers/SignUp.container';
 import Login from './containers/Login.container';
 import Privacy from './containers/Privacy.container'
@@ -38,9 +37,6 @@ class App extends Component {
               <Navbar bg="dark" expand="lg" variant="dark">
                 <Navbar.Brand>STUDENT</Navbar.Brand>
                 <Nav className="mr-auto">
-                  <Nav.Link as={Link} to="/">
-                    Utilisateurs
-                  </Nav.Link>
                   {!this.props.loginState.loggedIn &&
                     <Nav.Link as={Link} to="/signup/">
                       S'inscrire
@@ -101,7 +97,7 @@ class App extends Component {
                 </Modal>
               }
 
-              <Route path="/" exact component={Users} />
+              <Route path="/" exact component={this.props.loginState.loggedIn ? Profile : Login} />
               <Route path="/signup/" component={SignUp} />
               <Route path="/login/" component={Login} />
               <Route path="/privacy/" component={Privacy} />

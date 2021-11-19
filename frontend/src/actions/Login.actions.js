@@ -54,9 +54,11 @@ export const login = (loginData, ownProps) => {
         if(response.ok){
             response.json().then(data => {
                 userService.setToken(data.token);
-                dispatch(fetchUserData());
+                let user = dispatch(fetchUserData());
+                //dispatch(user);
                 ownProps.history.push('/');
                 // TODO: do another request to know if user paid adhesion
+                console.log(user)
                 var paid=true;
                 if(paid){
                     userService.setAdhesion(true);
@@ -89,4 +91,3 @@ export const reinitializeState = () => {
         type:'REINITIALIZE_STATE'
     }
 }
-

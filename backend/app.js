@@ -4,7 +4,6 @@ var path = require('path');
 var logger = require('morgan');
 var passport = require('passport');
 const mongoose = require('mongoose');
-var usersRouter = require('./routes/users');
 var authRouter = require('./routes/auth');
 
 var app = express();
@@ -30,7 +29,6 @@ var env = process.env.NODE_ENV || 'dev';
 if (env == 'production') {
   app.use("/", express.static(path.join(path.dirname(__dirname), '/frontend/build')))
 }
-app.use('/api/', usersRouter);
 app.use('/api/', authRouter);
 
 // catch 404 and forward to error handler
