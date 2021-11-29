@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Link, Redirect} from "react-router-dom";
-import Users from './containers/Users.container';
 import SignUp from './containers/SignUp.container';
 import Login from './containers/Login.container';
 import Privacy from './containers/Privacy.container'

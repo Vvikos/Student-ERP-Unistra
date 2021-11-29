@@ -39,7 +39,7 @@ router.post('/login', async (req, res) => {
 
     // return if there was no user with this username found in the database
     if (!user) {
-        errors.message = "No Account Found";
+        errors.message = "Aucun compte a été trouvé.";
         return res.status(400).json(errors);
     }
 
@@ -132,6 +132,26 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
         dbUser.email = email;
     if (date_birth)
         dbUser.date_birth = date_birth;
+
+    try {
+        await dbUser.save();
+    } catch (e) {
+        return res.status(400).json(e);
+    }
+    res.status(200).json();
+});
+
+router.post('/pay_adhesion', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
+    const student_number = req.body.student_number;
+
+    if (!student_number)
+        return res.status(400);
+
+    const dbUser = await User.findOne({student_number: req.body.student_number});
+
+
+    if (student_number)
+        dbUser.date_subscription = new Date();
 
     try {
         await dbUser.save();
