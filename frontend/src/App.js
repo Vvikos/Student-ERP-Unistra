@@ -38,9 +38,6 @@ class App extends Component {
               <Navbar bg="dark" expand="lg" variant="dark">
                 <Navbar.Brand>STUDENT</Navbar.Brand>
                 <Nav className="mr-auto">
-                  <Nav.Link as={Link} to="/">
-                    Utilisateurs
-                  </Nav.Link>
                   {!this.props.loginState.loggedIn &&
                     <Nav.Link as={Link} to="/signup/">
                       S'inscrire
@@ -52,8 +49,8 @@ class App extends Component {
                     </Nav.Link>
                   }
                   { this.props.loginState.loggedIn &&
-                    <Nav.Link as={Link} to="/profile/">
-                      Profil
+                    <Nav.Link as={Link} to="/">
+                      Profile
                     </Nav.Link>
                   }
                   { this.props.loginState.loggedIn &&
@@ -101,11 +98,10 @@ class App extends Component {
                 </Modal>
               }
 
-              <Route path="/" exact component={Users} />
+              <PrivateRoute path="/" exact component={Profile} />
+              <Route path="/login" exact component={Login} />
               <Route path="/signup/" component={SignUp} />
-              <Route path="/login/" component={Login} />
               <Route path="/privacy/" component={Privacy} />
-              <PrivateRoute path="/profile/" component={Profile} />
               <PrivateRoute path="/bank/" component={Bank} />
             </div>
           </Router>

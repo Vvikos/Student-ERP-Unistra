@@ -9,6 +9,8 @@ export class Profile extends React.Component {
 
   constructor(props) {
     super(props);
+    this.props.fetchUserData();
+    this.props.reinitializeState();
 
     this.state = {
       readOnly: true

@@ -42,6 +42,7 @@ const UserSchema = new mongoose.Schema({
     },
     student_number: {
         type: Number,
+        unique: true,
         required: true,
         minlength: 8,
         maxlength: 8,
@@ -53,7 +54,6 @@ const UserSchema = new mongoose.Schema({
     },
     date_subscription: {
         type: String,
-        select: false,
         default: null,
     },
     url_photo: {

@@ -70,10 +70,28 @@ router.post('/login', async (req, res) => {
         token: `Bearer ${token}` });
 });
 
+router.post('/pay_adhesion', async (req, res) => {
+    const student_number = req.body.student_number;
+
+    if (!student_number)
+        return res.status(400);
+
+    const dbUser = await User.findOne({student_number: req.body.student_number});
+
+    if (dbUser){
+        dbUser.date_subscription = "" + (new Date()).toISOString().split('T')[0];
+
+        dbUser.save();
+        return res.status(200).json({ success: "Le payement de la adhesion a été prise en compte." });        
+    } else {
+        return res.status(400).json({error : e});
+    }
+});
+
 router.get('/me', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
     const username = req.user.username;
     const dbUser = await User.findOne({ username });
-    res.status(200).json(dbUser);
+    return res.status(200).json(dbUser);
 });
 
 router.post('/me/update', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
