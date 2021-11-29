@@ -1,0 +1,120 @@
+kind: pipeline
+type: docker
+name: deploy
+
+clone:
+  disable: true
+
+steps:
+- name: notif build start
+  image: appleboy/drone-discord
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    username: "Drone Princelle (ERP: student)"
+    avatar_url: https://s3.princelle.org/share/drone-ci.png
+    message: >
+      🚀 Starting deployment of **{{ repo.name }}** repo (*ERP*)...
+
+      
+      **Commit from {{commit.author}} on {{commit.branch}}:** 
+      
+      {{commit.message}}
+
+      {{ build.link }}
+
+
+- name: pull
+  image: appleboy/drone-ssh
+  settings:
+    host: flash.princelle.org
+    username: mprincelle
+    port: 22
+    key:
+      from_secret: ci_key
+    script:
+      - cd /app/uni/erp/student
+      - git fetch --all
+      - git reset --hard origin/main
+      - git checkout {{commit.branch}}
+      - git pull
+
+- name: configure
+  image: appleboy/drone-ssh
+  settings:
+    host: flash.princelle.org
+    username: mprincelle
+    port: 22
+    key:
+      from_secret: ci_key
+    script:
+      - cd /app/uni/erp/student
+      - echo -e "DB_PORT=2005" > .env
+      - echo -e "SERVER_PORT=2003" >> .env
+
+- name: build
+  image: appleboy/drone-ssh
+  settings:
+    host: flash.princelle.org
+    username: mprincelle
+    port: 22
+    key:
+      from_secret: ci_key
+    script:
+      - cd /app/uni/erp/student
+      - docker-compose up -d --build
+
+
+- name: notif deploy done
+  image: appleboy/drone-discord
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    username: "Drone Princelle (ERP: student)"
+    avatar_url: https://s3.princelle.org/share/drone-ci.png
+    message: >
+      ✅ Successfully deployed **{{ repo.name }}** repo (*ERP*) on Princelle Cloud!
+
+      
+      **Commit from {{commit.author}} on {{commit.branch}}:** 
+      
+      {{commit.message}}
+
+      **APP URL:** https://student.erp.uni.princelle.org/ 
+
+      {{ build.link }}
+  when:
+    status:
+    - success
+
+- name: notif deploy failure
+  image: appleboy/drone-discord
+  settings:
+    webhook_id:
+      from_secret: discord_webhook_id
+    webhook_token:
+      from_secret: discord_webhook_token
+    username: "Drone Princelle (ERP: student)"
+    avatar_url: https://s3.princelle.org/share/drone-ci.png
+    message: >
+        ⚠️ Error on deploying **{{ repo.name }}** repo (*ERP*) on Princelle Cloud...
+
+        
+        **Commit from {{commit.author}} on {{commit.branch}}:** 
+        
+        {{commit.message}}
+
+        {{ build.link }}
+  when:
+    status:
+    - failure
+
+
+trigger:
+  branch:
+  - main
+  - feature/docker-env
