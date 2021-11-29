@@ -117,4 +117,3 @@ steps:
 trigger:
   branch:
   - main
-  - feature/docker-env
