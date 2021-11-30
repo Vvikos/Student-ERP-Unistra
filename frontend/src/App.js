@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Link, Redirect} from "react-router-dom";
+import {BrowserRouter as Router, Route, Switch , Link, Redirect} from "react-router-dom";
 import SignUp from './containers/SignUp.container';
 import Login from './containers/Login.container';
 import Privacy from './containers/Privacy.container'
@@ -96,12 +96,13 @@ class App extends Component {
                   </Modal.Footer>
                 </Modal>
               }
-
-              <PrivateRoute path="/" exact component={Profile} />
-              <Route path="/login" exact component={Login} />
-              <Route path="/signup/" component={SignUp} />
-              <Route path="/privacy/" component={Privacy} />
-              <PrivateRoute path="/bank/" component={Bank} />
+              <Switch>
+                <PrivateRoute path="/" exact component={Profile} />
+                <Route path="/login" exact component={Login} />
+                <Route path="/signup/" component={SignUp} />
+                <Route path="/privacy/" component={Privacy} />
+                <PrivateRoute path="/bank/" component={Bank} />
+              </Switch>
             </div>
           </Router>
     );
