@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Link, Redirect} from "react-router-dom";
+import {BrowserRouter, Route, Switch , Link, Redirect} from "react-router-dom";
 import SignUp from './containers/SignUp.container';
 import Login from './containers/Login.container';
 import Privacy from './containers/Privacy.container'
@@ -20,6 +20,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
     )} />
 )
 
+
 class App extends Component {
   // constructor(props) {
   //   super(props);
@@ -32,7 +33,8 @@ class App extends Component {
 
   render() {
     return (
-          <Router>
+          <>
+          <BrowserRouter>
             <div>
               <Navbar bg="dark" expand="lg" variant="dark">
                 <Navbar.Brand>STUDENT</Navbar.Brand>
@@ -96,14 +98,16 @@ class App extends Component {
                   </Modal.Footer>
                 </Modal>
               }
-
+            </div>
+            <Switch>
               <PrivateRoute path="/" exact component={Profile} />
               <Route path="/login" exact component={Login} />
               <Route path="/signup/" component={SignUp} />
               <Route path="/privacy/" component={Privacy} />
               <PrivateRoute path="/bank/" component={Bank} />
-            </div>
-          </Router>
+            </Switch>
+          </BrowserRouter>
+          </>
     );
   }
 }
