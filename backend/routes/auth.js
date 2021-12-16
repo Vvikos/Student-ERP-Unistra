@@ -141,4 +141,9 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
     res.status(200).json();
 });
 
+router.get('/etudiants', async (req, res) => {
+    const users = await User.find();
+    return res.status(200).json(users);
+});
+
 module.exports = router;
