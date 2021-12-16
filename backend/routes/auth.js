@@ -73,6 +73,9 @@ router.post('/login', async (req, res) => {
 router.post('/pay_adhesion', async (req, res) => {
     const student_number = req.body.student_number;
 
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
     if (!student_number)
         return res.status(400);
 
@@ -143,6 +146,8 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
 
 router.get('/etudiants', async (req, res) => {
     const users = await User.find();
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
     return res.status(200).json(users);
 });
 
