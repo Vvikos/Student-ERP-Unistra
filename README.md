@@ -9,11 +9,13 @@ Features the following REST endpoints:
 
 - **/api/login**
 
-- **/api/pay_adhesion**
+- **/api/pay_adhesion** (POST) body : {"student_number" : 12345678}
 
 - **/api/me**
 
 - **/api/me/update**
+
+- **/api/etudiants** (GET)
 
 ## Development
 - Run `npm start`, server will run at `http://localhost:8005` and MongoDB `http://localhost:27017`
