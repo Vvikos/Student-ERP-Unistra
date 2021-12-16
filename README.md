@@ -1,8 +1,8 @@
 # Student Part - ERP 2021
 
-## Baptiste CERDAN, Victor VOGT, Thomas STEINMETZ, Janos FALKE
+### Baptiste CERDAN, Victor VOGT, Thomas STEINMETZ, Janos FALKE
 
-## REST endpoints
+### REST endpoints
 Features the following REST endpoints:
 
 - **/api/signup**
@@ -17,5 +17,5 @@ Features the following REST endpoints:
 
 - **/api/etudiants** (GET)
 
-## Development
-- Run `npm start`, server will run at `http://localhost:8005` and MongoDB `http://localhost:27017`
+### Development
+- Run `docker-compose up --build`, server will run at `http://localhost:8005` and MongoDB `http://localhost:27017`
