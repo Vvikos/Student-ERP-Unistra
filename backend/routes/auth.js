@@ -88,9 +88,13 @@ router.post('/pay_adhesion', async (req, res) => {
     const dbUser = await User.findOne({student_number: req.body.student_number});
 
     if (dbUser){
-        dbUser.date_subscription = "" + (new Date()).toISOString().split('T')[0];
-
-        dbUser.save();
+        dbUser.date_subscription = "ok " + (new Date()).toISOString().split('T')[0];
+        try {
+            await dbUser.save();
+        } catch(e) {
+            errors = e;
+            return res.status(400).json(e);
+        }
         return res.status(200).json({ success: "Le payement de la adhesion a été prise en compte." });        
     } else {
         return res.status(400).json({error : e});
