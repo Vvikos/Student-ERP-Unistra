@@ -1,5 +1,21 @@
 import {userService} from "../services/authentication.service";
 
+const MONEY_API_URL = 'https://money.erp.uni.princelle.org';
+
+export const transactionDataFetchSuccess = (data) => {
+    return {
+        type:'TRANS_DATA_REQ_SUCCESS',
+        data
+    }
+}
+
+export const transactionDataFetchFailure = (message) => {
+    return {
+        type:'TRANS_DATA_REQ_FAILURE',
+        message
+    }
+}
+
 export const profileDataFetchSuccess = (data) => {
     return {
         type:'PROFILE_DATA_REQ_SUCCESS',
@@ -7,22 +23,34 @@ export const profileDataFetchSuccess = (data) => {
     }
 }
 
-export const profileDataFetchFailure = () => {
+export const profileDataFetchFailure = (message) => {
     return {
-        type:'PROFILE_DATA_REQ_FAILURE'
+        type:'PROFILE_DATA_REQ_FAILURE',
+        message
     }
 }
 
-export const updateUserSuccess = () => {
-    return {
-        type:'UPDATE_USER_SUCCESS',
-    }
-}
+export const fetchUserTransactions = (student_number) => {
+    return async (dispatch) => {
+        const response = await fetch(MONEY_API_URL+'/transactions/get/'+student_number, {
+            method: 'GET',
+        })
 
-export const updateUserFailure = (error) => {
-    return {
-        type:'UPDATE_USER_FAILURE',
-        message:error,
+        if(response.ok){
+            response.json().then(data => {
+                console.log(data);
+                let balance = data.rows.map(data => data.amount).reduce((sum, amount) => sum + amount);
+                let data_sorted = data.rows.sort(function(a,b){return Date.parse(a.concluded_at) - Date.parse(b.concluded_at)});
+                dispatch(transactionDataFetchSuccess({balance: balance, transactions: data_sorted}));
+            }).catch(err => dispatch(transactionDataFetchFailure(err)));
+        }
+        else{
+            response.json().then(error => {
+                dispatch(transactionDataFetchFailure(error));
+            }).catch(err => dispatch(transactionDataFetchFailure(err)));
+        }
+
+        return response;
     }
 }
 
@@ -33,42 +61,16 @@ export const fetchUserData = () => {
             headers: {
                 'Authorization': userService.getToken()
             }
-        })
-
+        });
+        
         if(response.ok){
             response.json().then(data => {
-                dispatch(profileDataFetchSuccess(data));
+                dispatch(profileDataFetchFailure(data));
             }).catch(err => dispatch(profileDataFetchFailure(err)));
-        }
-        else{
+        } else {
             response.json().then(error => {
                 dispatch(profileDataFetchFailure(error));
             }).catch(err => dispatch(profileDataFetchFailure(err)));
-        }
-
-        return response;
-    }
-}
-
-export const changeUserData = (data) => {
-    return async (dispatch) => {
-        const response = await fetch( "/api/me/update", {
-            method: 'POST',
-            headers: {
-                'Authorization': userService.getToken(),
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data),
-        })
-
-        if(response.ok){
-            dispatch(updateUserSuccess());
-        }
-        else{
-            response.json().then(error => {
-                dispatch(updateUserFailure(error));
-            }).catch(err => dispatch(updateUserFailure(err)));
         }
 
         return response;
