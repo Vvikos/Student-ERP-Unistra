@@ -40,7 +40,7 @@ export const fetchUserTransactions = (student_number) => {
             response.json().then(data => {
                 console.log(data);
                 let balance = data.rows.map(data => data.amount).reduce((sum, amount) => sum + amount);
-                let data_sorted = data.rows.sort(function(a,b){return Date.parse(a.concluded_at) - Date.parse(b.concluded_at)});
+                let data_sorted = data.rows.sort(function(a,b){return  Date.parse(b.concluded_at) - Date.parse(a.concluded_at)});
                 dispatch(transactionDataFetchSuccess({balance: balance, transactions: data_sorted}));
             }).catch(err => dispatch(transactionDataFetchFailure(err)));
         }

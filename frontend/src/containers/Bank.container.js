@@ -28,6 +28,32 @@ export class Bank extends React.Component {
     console.log('MOUNT PROPS', this.props);
   }
 
+  convertDate(formated_Date){
+    const date = new Date(formated_Date);
+
+    let day = parseInt(date.getDate());
+    if(day < 10){
+      day = "0" + day;
+    }
+
+    let month = parseInt(date.getMonth() + 1);
+    if(month < 10){
+      month = "0" + month;
+    }
+
+    let hours = parseInt(date.getHours());
+    if(hours < 10){
+      hours = "0" + hours;
+    }
+
+    let minutes = parseInt(date.getMinutes());
+    if(minutes < 10){
+      minutes = "0" + minutes;
+    }
+
+    return day + "/" + month + "/" + date.getFullYear() + " " + hours + ":" + minutes;
+  }
+
   render() {
   	return (
       <div>
@@ -54,7 +80,7 @@ export class Bank extends React.Component {
                     return (
                       <tr key={'trans'+transaction.id}>
                         <td><Image src={logo_trans} alt='transaction' width={30} height={30} /></td>
-                        <td style={{fontStyle:'italic'}} colSpan='3'>{transaction.concluded_at}</td>
+                        <td style={{fontStyle:'italic'}} colSpan='3'>{this.convertDate(transaction.concluded_at)}</td>
                         <td style={{fontStyle:'italic', color:'#242424'}} colSpan='3'>{transaction.comment}</td>
                         <td>{transaction.amount}€</td>
                       </tr>
