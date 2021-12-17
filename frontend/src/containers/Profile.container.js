@@ -150,6 +150,15 @@ export class Profile extends React.Component {
                 />
               </Form.Group>
             }
+             <Form.Group controlId="picture">
+              <Form.Label>Avatar</Form.Label>
+              <Form.Control
+                defaultValue={this.props.state.me.picture}
+                onChange={this.handleChange}
+                type="text"
+                readOnly={this.state.readOnly}
+              />
+            </Form.Group>
             { !this.state.readOnly &&
               <Button
                 block

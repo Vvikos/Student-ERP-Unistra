@@ -105,6 +105,7 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
     const date_birth = req.body.date_birth;
     const oldPassword = req.body.oldpassword;
     const newPassword = req.body.password;
+    const newPicture= req.body.picture;
 
     if (!firstname && !lastname && !email && !date_birth && !passport)
         return res.status(200);
@@ -135,6 +136,8 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
         dbUser.email = email;
     if (date_birth)
         dbUser.date_birth = date_birth;
+    if (newPicture)
+        dbUser.picture = newPicture;
 
     try {
         await dbUser.save();
