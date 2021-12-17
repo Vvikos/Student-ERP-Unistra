@@ -55,7 +55,7 @@ export class Profile extends React.Component {
   		<Card style={{ width: '18rem', margin: '0 auto', marginTop:'30px' }}>
         <Card.Body>
           <Card.Title>Profil</Card.Title>
-          <Container>
+          <Container style={{marginBottom: 20, marginTop: 20}}>
           <Row>
             <Col xs={6} md={4}>
               <Image src={this.props.state.me.picture} alt="avatar" width={210} height={210} roundedCircle />
@@ -64,7 +64,7 @@ export class Profile extends React.Component {
         </Container>
           <Form autoComplete="off" onSubmit={(e) => {e.preventDefault(); this.changeUserData()}}>
             <Form.Group controlId="username">
-              <Form.Label>Nom d'utilisateur</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Nom d'utilisateur</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.username}
                 onChange={this.handleChange}
@@ -75,7 +75,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="firstname">
-              <Form.Label>Prénom</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Prénom</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.firstname}
                 onChange={this.handleChange}
@@ -85,7 +85,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="lastname">
-              <Form.Label>Nom</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Nom</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.lastname}
                 onChange={this.handleChange}
@@ -95,7 +95,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="student_number">
-              <Form.Label>Numéro Etudiant</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Numéro Etudiant</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.student_number}
                 onChange={this.handleChange}
@@ -106,7 +106,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="email">
-              <Form.Label>E-mail</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>E-mail</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.email}
                 onChange={this.handleChange}
@@ -116,7 +116,7 @@ export class Profile extends React.Component {
               />
             </Form.Group>
             <Form.Group controlId="date_birth">
-              <Form.Label>Date d'anniversaire</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Date d'anniversaire</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.date_birth}
                 onChange={this.handleChange}
@@ -128,7 +128,7 @@ export class Profile extends React.Component {
 
             { !this.state.readOnly && this.state.password &&
               <Form.Group controlId="oldpassword">
-                <Form.Label>Ancien mot de passe</Form.Label>
+                <Form.Label style={{fontWeight: 'bold'}}>Ancien mot de passe</Form.Label>
                 <Form.Control
                   onChange={this.handleChange}
                   type="password"
@@ -138,7 +138,7 @@ export class Profile extends React.Component {
             }
             { !this.state.readOnly &&
             <Form.Group controlId="password">
-              <Form.Label>Mot de passe</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Mot de passe</Form.Label>
                 <Form.Control
                   onClick={(e) => {
                     this.setState({changePass: true});
@@ -151,7 +151,7 @@ export class Profile extends React.Component {
               </Form.Group>
             }
              <Form.Group controlId="picture">
-              <Form.Label>Avatar</Form.Label>
+              <Form.Label style={{fontWeight: 'bold'}}>Avatar</Form.Label>
               <Form.Control
                 defaultValue={this.props.state.me.picture}
                 onChange={this.handleChange}

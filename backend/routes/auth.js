@@ -6,6 +6,12 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET || 'some other secret as default';
 const passport = require('passport');
 
+router.options('*', async (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    next();
+});
+
 router.post('/signup', async (req, res) => {
     var errors = {};
     const user = await User.findOne({username: req.body.username});
