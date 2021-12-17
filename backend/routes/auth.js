@@ -90,7 +90,7 @@ router.post('/pay_adhesion', async (req, res) => {
     if (dbUser){
         dbUser.date_subscription = "ok " + (new Date()).toISOString().split('T')[0];
         try {
-            await dbUser.save();
+            await dbUser.update();
         } catch(e) {
             errors = e;
             return res.status(400).json(e);
