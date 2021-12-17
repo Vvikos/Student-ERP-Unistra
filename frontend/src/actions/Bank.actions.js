@@ -33,7 +33,7 @@ export const profileDataFetchFailure = (message) => {
 export const fetchUserTransactions = (student_number) => {
     return async (dispatch) => {
         const response = await fetch(MONEY_API_URL+'/transactions/get/'+student_number, {
-            method: 'GET',
+            method: 'GET'
         })
 
         if(response.ok){
