@@ -1,27 +1,22 @@
 const INITIAL_STATE = {
-	me: {},
-	updateUserError: false,
-	updateUserErrorMessage: {},
-	updateUserSuccess: false,
-	loading: false,
-	profileDataError: false,
+	account: {balance: 0, transactions: []},
+	fetchBankError: false,
+	fetchBankErrorMessage: {},
+	loading: false
 }
 
-const forgotpasswordReducer = (currentState = INITIAL_STATE, action) => {
+const bankReducer = (currentState = INITIAL_STATE, action) => {
+	console.log('BANK REDUCER', action);
   switch (action.type) {
 	  case 'REINITIALIZE_STATE':
-	  	return {...currentState, updateUserError: false, updateUserErrorMessage: {}, loading:false, updateUserSuccess:false};
-	  case 'PROFILE_DATA_REQ_SUCCESS':
-	  	return {...currentState, me:action.data};
-	  case 'PROFILE_DATA_REQ_FAILURE':
-		  return {...currentState, profileDataError: true};
-	  case 'UPDATE_USER_FAILURE':
-		  return {...currentState, updateUserError:true, updateUserErrorMessage:action.message, loading: false, updateUserSuccess:false};
-	  case 'UPDATE_USER_SUCCESS':
-		  return {...currentState, updateUserError:false, updateUserErrorMessage:{}, updateUserSuccess: true, loading: false};
+	  	return {...currentState, fetchBankError: false, fetchBankErrorMessage: {}, loading:false};
+	  case 'TRANS_DATA_REQ_FAILURE':
+		  return {...currentState, fetchBankError:true, fetchBankErrorMessage:action.message, loading: false};
+	  case 'TRANS_DATA_REQ_SUCCESS':
+		  return {...currentState, account:action.data, fetchBankError:false, fetchBankErrorMessage:{}, loading: false};
 	  default:
 	       return currentState;
 	}
 }
 
-export default forgotpasswordReducer;
+export default bankReducer;

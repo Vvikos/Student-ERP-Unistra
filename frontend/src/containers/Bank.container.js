@@ -3,68 +3,43 @@ import React from 'react';
 import logo_trans from '../icons/transaction.png';
 import logo_money from '../icons/dollar.png';
 import { withRouter } from 'react-router-dom'
-import { Table, Button, Card, Image, Row, Col, Nav } from "react-bootstrap";
+import { Table, Button, Card, Image, Row, Col, Nav, NavItem } from "react-bootstrap";
 import * as bankActions from "../actions/Bank.actions";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
 export class Bank extends React.Component {
 
   constructor(props) {
     super(props);
+  }
 
-    this.state = {
-      readOnly: true
-    };
-
-    this.switchToEditionMode = this.switchToEditionMode.bind(this);
+  componentDidUpdate(){
+    console.log('PROFILE', this.props.profile);
+    console.log('BANK', this.props.bank);
+    console.log('PROPS', this.props);
   }
 
   componentDidMount(){
     this.props.fetchUserData();
-    this.props.reinitializeState();
+    this.props.fetchUserTransactions(this.props.profile.me.student_number);
+    console.log('MOUNT PROFILE', this.props.profile);
+    console.log('MOUNT BANK', this.props.bank);
+    console.log('MOUNT PROPS', this.props);
   }
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.state !== this.props.state) {
-      this.setState({
-        readOnly: this.props.state.updateUserSuccess
-      });
-    }
-  }
-
-  handleChange = event => {
-    this.setState({
-      [event.target.id]: event.target.value,
-    });
-  }
-
-  switchToEditionMode() {
-    this.setState({
-      readOnly: false
-    });
-  }
-
-  changeUserData() {
-    this.props.changeUserData(this.state);
-  }
-
 
   render() {
   	return (
       <div>
-  		<Row style={{ width: '95%', margin: '0 auto', marginTop:'30px' }}>
-        <Col xs lg="4">
-          <Card className="block-example border border-dark" style={{ width: '100%', margin: '0 auto', marginTop:'200px', border:'none', textAlign: "center"}}>
+  		<Row style={{ height: '100%', width: '95%', margin: '0 auto', marginTop:'30px' }}>
+        <Col lg="4" className='block-example border-right border-gray bg-light' style={{ marginTop:'20px', width: '100%', height: '100%', border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}} >
+          <Card className='bg-light' style={{ width: '100%', height: '100%', border: 'none', display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center'}}>
             <Card.Body>
-              <Card.Title>Compte</Card.Title>
-              <Card.Text style={{display: 'flex', justifyContent: 'center'}}>
-                <Image src={logo_money} alt="argent" width={50} height={50} />
+              <Card.Title>Solde</Card.Title>
+              <Card.Img src={logo_money} alt="argent" width={50} height={50} />
+              <Card.Text style={{textAlign: 'center', fontSize:'20px'}}>
+                {this.props.bank.account ? this.props.bank.account.balance : 'NaN'} €
               </Card.Text>
-              <div style={{display: 'flex', justifyContent: 'center', fontSize:"20px", fontWeight:"bold"}}>
-                <div className="p-3 block-example border border-dark rounded-pill">120 €</div>
-              </div>
-              <Button variant="primary">Ajouter des fonds </Button>
             </Card.Body>
           </Card>
         </Col>
@@ -74,30 +49,29 @@ export class Bank extends React.Component {
               <Card.Title>Transactions</Card.Title>
             <Table hover style={{ marginTop:'50px' }}>
               <tbody>
-                <tr>
-                  <td><Image src={logo_trans} alt="transaction" width={30} height={30} /></td>
-                  <td colSpan="3">29/09/2021</td>
-                  <td>-8€</td>
-                </tr>
-                <tr>
-                  <td><Image src={logo_trans} alt="transaction" width={30} height={30} /></td>
-                  <td colSpan="3">29/09/2021</td>
-                  <td>-8€</td>
-                </tr>
-                <tr>
-                  <td><Image src={logo_trans} alt="transaction" width={30} height={30} /></td>
-                  <td colSpan="3">29/09/2021</td>
-                  <td>-8€</td>
-                </tr>
+              { this.props.bank.account ?
+                  this.props.bank.account.transactions.map((transaction) => {
+                    return (
+                      <tr key={'trans'+transaction.id}>
+                        <td><Image src={logo_trans} alt='transaction' width={30} height={30} /></td>
+                        <td style={{fontStyle:'italic'}} colSpan='3'>{transaction.concluded_at}</td>
+                        <td style={{fontStyle:'italic', color:'#242424'}} colSpan='3'>{transaction.comment}</td>
+                        <td>{transaction.amount}€</td>
+                      </tr>
+                    );
+                  })
+                :
+                 null
+              }
               </tbody>
             </Table>
            </Card.Body>
           </Card>
         </Col>
-          {this.props.state.updateUserError && <div><br/>{JSON.stringify(this.props.state.updateUserErrorMessage.message)}</div>}
-          {this.props.state.updateUserSuccess && <div><br/>Success! You can now use your new password.</div>}
+          {this.props.profile.updateUserError && <div><br/>{JSON.stringify(this.props.profile.updateUserErrorMessage.message)}</div>}
+          {this.props.profile.updateUserSuccess && <div><br/>Success! You can now use your new password.</div>}
       </Row>
-      <footer className="footer mt-auto">
+      <footer className="footer mt-auto" style={{ position:'absolute', left:0, bottom:0, right:0}}>
         <div className="container" style={{ textAlign : "center"}}>
         <Nav.Link as={Link} to="/privacy/">
           Politique de confidentialité
@@ -112,14 +86,15 @@ export class Bank extends React.Component {
 // map state from store to props
 const mapStateToProps = (state) => {
   return {
-    state: state.profile
+    profile: state.profile,
+    bank: state.bank
   }
 }
 // map actions to props
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchUserData: () => dispatch(bankActions.fetchUserData()),
-    changeUserData: (data) => dispatch(bankActions.changeUserData(data)),
+    fetchUserTransactions: (data) => dispatch(bankActions.fetchUserTransactions(data)),
     reinitializeState: () => dispatch(bankActions.reinitializeState()),
   }
 }
