@@ -14,18 +14,9 @@ export class Bank extends React.Component {
     super(props);
   }
 
-  componentDidUpdate(){
-    console.log('PROFILE', this.props.profile);
-    console.log('BANK', this.props.bank);
-    console.log('PROPS', this.props);
-  }
-
   componentDidMount(){
     this.props.fetchUserData();
     this.props.fetchUserTransactions(this.props.profile.me.student_number);
-    console.log('MOUNT PROFILE', this.props.profile);
-    console.log('MOUNT BANK', this.props.bank);
-    console.log('MOUNT PROPS', this.props);
   }
 
   convertDate(formated_Date){
