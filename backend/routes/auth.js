@@ -6,12 +6,14 @@ const jwt = require('jsonwebtoken');
 const secret = process.env.SECRET || 'some other secret as default';
 const passport = require('passport');
 
+// Headers for accepting request from all endpoints
 router.options('*', async (req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     next();
 });
 
+// Request for signup
 router.post('/signup', async (req, res) => {
     var errors = {};
     const user = await User.findOne({username: req.body.username});
@@ -37,6 +39,7 @@ router.post('/signup', async (req, res) => {
     return res.status(200).json({});
 });
 
+// Request for login
 router.post('/login', async (req, res) => {
     const errors = {};
     const username = req.body.username
@@ -50,8 +53,7 @@ router.post('/login', async (req, res) => {
     }
 
     isMatch = await bcrypt.compare(password, user.password);
-    //isMatch = password == user.password;
-    // return 400 if password does not match
+
     if (!isMatch) {
         errors.message = "Password is incorrect";
         return res.status(400).json(errors);
@@ -76,6 +78,7 @@ router.post('/login', async (req, res) => {
         token: `Bearer ${token}` });
 });
 
+// Request for paid adhesion
 router.post('/pay_adhesion', async (req, res) => {
     const student_number = req.body.student_number;
 
@@ -101,12 +104,14 @@ router.post('/pay_adhesion', async (req, res) => {
     }
 });
 
+// Request for connected account infos
 router.get('/me', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
     const username = req.user.username;
     const dbUser = await User.findOne({ username });
     return res.status(200).json(dbUser);
 });
 
+// Request for updating connected account infos
 router.post('/me/update', passport.authenticate('jwt', {session: false}), async function(req, res, next) {
     const username = req.user.username;
     const firstname = req.body.firstname;
@@ -157,6 +162,7 @@ router.post('/me/update', passport.authenticate('jwt', {session: false}), async 
     res.status(200).json();
 });
 
+// Request for all created student accounts
 router.get('/etudiants', async (req, res) => {
     const users = await User.find();
     res.header("Access-Control-Allow-Origin", "*");

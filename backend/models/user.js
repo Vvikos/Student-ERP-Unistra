@@ -72,11 +72,6 @@ UserSchema.plugin(uniqueValidator);
 UserSchema.pre('save', function(next) {
     let user = this;
 
-    /*if (!user.isModified('password')) {
-        return next();
-    } else {
-    }*/
-
     bcrypt
         .genSalt(12)
         .then((salt) => {
