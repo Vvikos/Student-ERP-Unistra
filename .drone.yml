@@ -38,7 +38,7 @@ steps:
       - cd /app/uni/erp/student
       - git fetch --all
       - git reset --hard origin/main
-      - git checkout {{commit.branch}}
+      - git checkout main
       - git pull
 
 - name: configure
