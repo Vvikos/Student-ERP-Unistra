@@ -54,17 +54,13 @@ export const login = (loginData, ownProps) => {
         if(response.ok){
             response.json().then(data => {
                 userService.setToken(data.token);
-                let user = dispatch(fetchUserData());
-                //dispatch(user);
+                dispatch(fetchUserData());
                 ownProps.history.push('/');
-
 
                 // TODO: do another request to know if user paid adhesion
                 // make request to get user data 
                 
-
                 var paid=true;
-                
                 
                 if(paid){
                     userService.setAdhesion(true);
