@@ -29,7 +29,7 @@ steps:
 - name: pull
   image: appleboy/drone-ssh
   settings:
-    host: flash.princelle.org
+    host: cloud.princelle.org
     username: mprincelle
     port: 22
     key:
