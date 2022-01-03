@@ -44,7 +44,7 @@ steps:
 - name: configure
   image: appleboy/drone-ssh
   settings:
-    host: flash.princelle.org
+    host: cloud.princelle.org
     username: mprincelle
     port: 22
     key:
@@ -57,7 +57,7 @@ steps:
 - name: build
   image: appleboy/drone-ssh
   settings:
-    host: flash.princelle.org
+    host: cloud.princelle.org
     username: mprincelle
     port: 22
     key:
