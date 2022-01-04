@@ -157,6 +157,7 @@ export class Profile extends React.Component {
                 onChange={this.handleChange}
                 type="text"
                 readOnly={this.state.readOnly}
+                maxLength={100}
               />
             </Form.Group>
             { !this.state.readOnly &&

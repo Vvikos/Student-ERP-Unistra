@@ -3,16 +3,12 @@ import React from 'react';
 import logo_trans from '../icons/transaction.png';
 import logo_money from '../icons/dollar.png';
 import { withRouter } from 'react-router-dom'
-import { Table, Button, Card, Image, Row, Col, Nav, NavItem } from "react-bootstrap";
+import { Table, Card, Image, Row, Col, Nav } from "react-bootstrap";
 import * as bankActions from "../actions/Bank.actions";
 import { Link } from "react-router-dom";
 
 
 export class Bank extends React.Component {
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount(){
     this.props.fetchUserData();
